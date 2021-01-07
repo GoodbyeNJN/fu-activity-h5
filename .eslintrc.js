@@ -76,5 +76,5 @@ module.exports = {
         // ],
         // "@typescript-eslint/no-parameter-properties": ["error", { allows: ["private readonly"] }],
     },
-    ignorePatterns: ["dist/**/*.js", "public/**/*.js"],
+    ignorePatterns: ["dist/**/*.js", "public/**/*.js", "typings.d.ts"],
 };
