@@ -1,11 +1,16 @@
-import styles from "./index.less";
-import indexPage from "@/assets/images/index-page.png";
+import { useEffect, useRef, useState } from "react";
 
-export default () => {
+export default props => {
+    const mapName = useRef(Date.now().toString());
+
+    useEffect(() => {
+        window.addEventListener("resize");
+    });
+
     return (
-        <div className={styles.container}>
-            <img className={styles.bgImg} src={indexPage} useMap="#MM" />
-            <map id="MM" name="MM">
+        <>
+            <img useMap={mapName.current} />
+            <map name={mapName.current}>
                 <area
                     shape="rect"
                     coords="20,20,80,80"
@@ -16,6 +21,6 @@ export default () => {
                     }}
                 />
             </map>
-        </div>
+        </>
     );
 };
