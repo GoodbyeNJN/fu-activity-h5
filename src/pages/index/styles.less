@@ -1,0 +1,38 @@
+@import "../../mixins.less";
+
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.content {
+    position: absolute;
+    top: calc(139 * @y-scale);
+    width: 100vw;
+}
+
+.open-btn {
+    position: absolute;
+    top: calc(1111 * @y-scale);
+    left: 0;
+    right: 0;
+    width: calc(313 * @x-scale);
+    height: calc(93 * @y-scale);
+    margin: auto;
+}
+
+.gift-btn,
+.rule-btn {
+    position: absolute;
+    left: calc(28 * @x-scale);
+    width: calc(57 * @x-scale);
+}
+
+.gift-btn {
+    top: calc(1094 * @y-scale);
+}
+
+.rule-btn {
+    top: calc(1179 * @y-scale);
+}

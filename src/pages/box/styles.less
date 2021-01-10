@@ -1,0 +1,70 @@
+@import "../../mixins.less";
+
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.head {
+    position: absolute;
+    right: 0;
+    width: calc(736 * @x-scale);
+}
+
+.box {
+    &-open {
+        position: absolute;
+        top: calc(329 * @y-scale);
+        left: 0;
+        right: 0;
+        width: calc(588 * @x-scale);
+        margin: auto;
+    }
+
+    &-close {
+        position: absolute;
+        top: calc(515 * @y-scale);
+        left: 0;
+        right: 0;
+        width: calc(559 * @x-scale);
+        margin: auto;
+    }
+
+    &-container {
+        position: absolute;
+        top: calc(301 * @y-scale);
+        width: 100vw;
+    }
+}
+
+.prize {
+    position: absolute;
+    bottom: calc(700 * @y-scale);
+    left: 0;
+    right: 0;
+    width: calc(200 * @x-scale);
+    margin: auto;
+}
+
+.flash {
+    position: absolute;
+    top: calc(215 * @y-scale);
+    width: 100vw;
+}
+
+.spotlight {
+    position: absolute;
+    width: 100vw;
+}
+
+.open-btn {
+    position: absolute;
+    top: calc(1098 * @y-scale);
+    left: 0;
+    right: 0;
+    width: calc(396 * @x-scale);
+    height: calc(119 * @y-scale);
+    margin: auto;
+    font-size: calc(53 * @x-scale);
+}

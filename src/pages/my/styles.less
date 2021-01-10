@@ -1,0 +1,70 @@
+@import "../../mixins.less";
+
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.gifts,
+.cards {
+    position: absolute;
+    width: calc(690 * @x-scale);
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: calc(222 * @x-scale);
+        height: calc(56 * @y-scale);
+        color: #c3181b;
+        font-size: calc(46 * @x-scale);
+        border: calc(7 * @x-scale) solid #eea444;
+        border-radius: calc(7 * @x-scale);
+        background-color: #f4cf95;
+        box-sizing: content-box;
+    }
+
+    &-list {
+        display: flex;
+        justify-content: space-between;
+        margin-top: calc(30 * @y-scale);
+    }
+}
+
+.gifts {
+    top: calc(183 * @y-scale);
+
+    &-list {
+        flex-direction: column;
+        height: calc(650 * @y-scale);
+
+        &-line {
+            display: flex;
+            justify-content: space-between;
+
+            > img {
+                width: calc(206 * @x-scale);
+                height: calc(198 * @y-scale);
+            }
+
+            &:last-child > :last-child {
+                visibility: hidden;
+            }
+        }
+    }
+}
+
+.cards {
+    top: calc(967 * @y-scale);
+
+    &-list {
+        > img {
+            width: calc(135 * @x-scale);
+            height: calc(190 * @y-scale);
+        }
+    }
+}

@@ -1,0 +1,138 @@
+@import "../../mixins.less";
+
+@btn-actual-w: 313;
+@btn-actual-h: 93;
+@btn-design-w: 2919;
+@btn-design-h: 871;
+
+@x-scale-btn: calc(@btn-actual-w / @btn-design-w * @x-scale);
+@y-scale-btn: calc(@btn-actual-h / @btn-design-h * @y-scale);
+
+@corner-outer-w: 200;
+@corner-outer-h: 200;
+@corner-outer-thickness: 20.8;
+
+@corner-inner-w: 130;
+@corner-inner-h: 130;
+@corner-inner-thickness: 12.5;
+@corner-inner-t: 35;
+@corner-inner-l: 35;
+
+@center-outer-thickness: 20.8;
+@center-outer-t: 100;
+@center-outer-b: 100;
+@center-outer-l: 100;
+@center-outer-r: 100;
+
+@center-inner-thickness: 12.5;
+@center-inner-t: 145;
+@center-inner-b: 145;
+@center-inner-l: 145;
+@center-inner-r: 145;
+
+.button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.border-gradient(@border-width) {
+    border: @border-width solid transparent;
+    border-image-source: linear-gradient(
+        to right,
+        #c19c62 0%,
+        #ece2b9 26%,
+        #c19c62 45%,
+        #ece2b9 76%,
+        #a58053 100%
+    );
+    border-image-slice: 1;
+}
+
+.border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .top-left {
+        top: 0;
+        left: 0;
+    }
+
+    .top-right {
+        top: 0;
+        right: 0;
+    }
+
+    .bottom-left {
+        bottom: 0;
+        left: 0;
+    }
+
+    .bottom-right {
+        bottom: 0;
+        right: 0;
+    }
+
+    .corner {
+        position: absolute;
+
+        .outer {
+            width: calc(@corner-outer-w * @x-scale-btn);
+            height: calc(@corner-outer-h * @x-scale-btn);
+            .border-gradient(calc(@corner-outer-thickness * @x-scale-btn));
+        }
+
+        .inner {
+            position: absolute;
+            top: calc(@corner-inner-t * @y-scale-btn);
+            left: calc(@corner-inner-l * @x-scale-btn);
+            width: calc(@corner-inner-w * @x-scale-btn);
+            height: calc(@corner-inner-h * @x-scale-btn);
+            .border-gradient(calc(@corner-inner-thickness * @x-scale-btn));
+        }
+    }
+
+    .center {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .outer {
+            position: absolute;
+            top: calc(@center-outer-t * @y-scale-btn);
+            bottom: calc(@center-outer-b * @y-scale-btn);
+            left: calc(@center-outer-l * @x-scale-btn);
+            right: calc(@center-outer-r * @x-scale-btn);
+            .border-gradient(calc(@center-outer-thickness * @x-scale-btn));
+        }
+
+        .inner {
+            position: absolute;
+            top: calc(@center-inner-t * @y-scale-btn);
+            bottom: calc(@center-inner-b * @y-scale-btn);
+            left: calc(@center-inner-l * @x-scale-btn);
+            right: calc(@center-inner-r * @x-scale-btn);
+            .border-gradient(calc(@center-inner-thickness * @x-scale-btn));
+        }
+    }
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc((@center-inner-t + @center-inner-thickness) * @y-scale-btn);
+    bottom: calc((@center-inner-b + @center-inner-thickness) * @y-scale-btn);
+    left: calc((@center-inner-l + @center-inner-thickness) * @x-scale-btn);
+    right: calc((@center-inner-r + @center-inner-thickness) * @x-scale-btn);
+    color: #c7261f;
+    font-size: calc(46 * @x-scale);
+    background-color: #f8d99f;
+}
