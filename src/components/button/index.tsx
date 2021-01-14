@@ -13,12 +13,12 @@ interface Props extends Button {
 }
 
 export default (props: Props) => {
-    const { children, className, ...restProps } = props;
+    const { children, className, style, ...restProps } = props;
 
     const button = useTouch(styles.button);
 
     return (
-        <div className={className}>
+        <div className={className} style={style}>
             <button className={button.className} {...button.handlers} {...restProps}>
                 <div className={styles.content}>{children}</div>
 

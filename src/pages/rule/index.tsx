@@ -1,7 +1,7 @@
 import { history } from "umi";
 import styles from "./styles.less";
 
-import { rule } from "@/assets/images";
+import { common, rule } from "@/assets/images";
 import Button from "@/components/button";
 
 const { prize } = rule;
@@ -9,7 +9,7 @@ const { prize } = rule;
 export default () => {
     return (
         <div className={styles.container}>
-            <img src={rule.fireworks} className={styles.fireworks} />
+            <img src={common.fireworks} className={styles.fireworks} />
 
             <div className={styles.content}>
                 <p className={styles.contentTitle}>活动规则</p>
@@ -82,7 +82,7 @@ export default () => {
             </div>
 
             <Button className={styles.btn} onClick={() => history.push("/")}>
-                <div className={styles.btnText}>确认</div>
+                确认
             </Button>
         </div>
     );

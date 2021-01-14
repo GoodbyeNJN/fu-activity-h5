@@ -2,7 +2,7 @@ import styles from "./styles.less";
 
 import { my } from "@/assets/images";
 
-const { prize } = my;
+const { prize, cards } = my;
 
 export default () => {
     return (
@@ -32,9 +32,11 @@ export default () => {
                 <div className={styles.title}>我的福卡</div>
 
                 <div className={styles.cardsList}>
-                    {my.cards.map(src => (
-                        <img key={src} src={src} />
-                    ))}
+                    <img src={cards.fu} />
+                    <img src={cards.yu} />
+                    <img src={cards.qian} />
+                    <img src={cards.wan} />
+                    <img src={cards.li} />
                 </div>
             </div>
         </div>

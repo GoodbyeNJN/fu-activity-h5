@@ -40,15 +40,16 @@
 
     &-list {
         flex-direction: column;
-        height: calc(650 * @y-scale);
+        // height: calc(638 * @y-scale);
 
         &-line {
             display: flex;
             justify-content: space-between;
+            margin-bottom: calc(20 * @y-scale);
 
             > img {
                 width: calc(206 * @x-scale);
-                height: calc(198 * @y-scale);
+                // height: calc(198 * @y-scale);
             }
 
             &:last-child > :last-child {
@@ -64,7 +65,7 @@
     &-list {
         > img {
             width: calc(135 * @x-scale);
-            height: calc(190 * @y-scale);
+            // height: calc(190 * @y-scale);
         }
     }
 }

@@ -1,0 +1,71 @@
+@import "../../mixins.less";
+
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.mask {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.77);
+    z-index: 1;
+
+    .popup {
+        position: absolute;
+        top: calc(184 * @y-scale);
+        left: calc(173 * @x-scale);
+        width: calc(467 * @x-scale);
+        z-index: 2;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: calc(823 * @y-scale);
+        left: 0;
+        right: 0;
+        width: calc(59 * @x-scale);
+        margin: auto;
+        z-index: 2;
+    }
+}
+s .fireworks {
+    position: absolute;
+    top: calc(-33 * @y-scale);
+    left: calc(468 * @y-scale);
+    width: calc(246 * @x-scale);
+}
+
+.title {
+    position: absolute;
+    top: calc(180 * @y-scale);
+    left: 0;
+    right: 0;
+    margin: auto;
+    color: #ffe7af;
+    font-size: calc(50 * @x-scale);
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: calc(284 * @y-scale);
+    width: 100vw;
+    height: calc(653 * @y-scale);
+}
+
+.btn {
+    position: absolute;
+    top: calc(1098 * @y-scale);
+    left: 0;
+    right: 0;
+    width: calc(369 * @x-scale);
+    height: calc(119 * @y-scale);
+    margin: auto;
+}

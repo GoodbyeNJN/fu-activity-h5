@@ -2,7 +2,7 @@ import { history } from "umi";
 import { useTouch } from "@/utils/hooks";
 import styles from "./styles.less";
 
-import { index } from "@/assets/images";
+import { btn, index } from "@/assets/images";
 import Button from "@/components/button";
 
 export default () => {
@@ -18,13 +18,13 @@ export default () => {
             </Button>
 
             <img
-                src={index.giftBtn}
+                src={btn.gift}
                 className={giftBtn.className}
                 {...giftBtn.handlers}
                 onClick={() => history.push("/my")}
             />
             <img
-                src={index.ruleBtn}
+                src={btn.rule}
                 className={ruleBtn.className}
                 {...ruleBtn.handlers}
                 onClick={() => history.push("/rule")}

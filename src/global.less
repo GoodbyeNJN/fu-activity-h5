@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: "vivo";
-    src: url("/fonts/vivo-type-Light.eot");
-    src: url("/fonts/vivo-type-Light.eot?#iefix") format("embedded-opentype"),
-        url("/fonts/vivo-type-Light.woff2") format("woff2"),
-        url("/fonts/vivo-type-Light.woff") format("woff"),
-        url("/fonts/vivo-type-Light.ttf") format("truetype"),
-        url("/fonts/vivo-type-Light.svg#VCustom FontS Light") format("svg");
+    src: url("./assets/fonts/vivo-type-Light.eot");
+    src: url("./assets/fonts/vivo-type-Light.eot?#iefix") format("embedded-opentype"),
+        url("./assets/fonts/vivo-type-Light.woff2") format("woff2"),
+        url("./assets/fonts/vivo-type-Light.woff") format("woff"),
+        url("./assets/fonts/vivo-type-Light.ttf") format("truetype"),
+        url("./assets/fonts/vivo-type-Light.svg#VCustom FontS Light") format("svg");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -15,12 +15,12 @@
 
 @font-face {
     font-family: "vivo";
-    src: url("/fonts/vivo-type-Bold.eot");
-    src: url("/fonts/vivo-type-Bold.eot?#iefix") format("embedded-opentype"),
-        url("/fonts/vivo-type-Bold.woff2") format("woff2"),
-        url("/fonts/vivo-type-Bold.woff") format("woff"),
-        url("/fonts/vivo-type-Bold.ttf") format("truetype"),
-        url("/fonts/vivo-type-Bold.svg#VCustom FontS Bold") format("svg");
+    src: url("./assets/fonts/vivo-type-Bold.eot");
+    src: url("./assets/fonts/vivo-type-Bold.eot?#iefix") format("embedded-opentype"),
+        url("./assets/fonts/vivo-type-Bold.woff2") format("woff2"),
+        url("./assets/fonts/vivo-type-Bold.woff") format("woff"),
+        url("./assets/fonts/vivo-type-Bold.ttf") format("truetype"),
+        url("./assets/fonts/vivo-type-Bold.svg#VCustom FontS Bold") format("svg");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -28,12 +28,12 @@
 
 @font-face {
     font-family: "vivo";
-    src: url("/fonts/vivo-type-Regular.eot");
-    src: url("/fonts/vivo-type-Regular.eot?#iefix") format("embedded-opentype"),
-        url("/fonts/vivo-type-Regular.woff2") format("woff2"),
-        url("/fonts/vivo-type-Regular.woff") format("woff"),
-        url("/fonts/vivo-type-Regular.ttf") format("truetype"),
-        url("/fonts/vivo-type-Regular.svg#VCustom FontS Medium") format("svg");
+    src: url("./assets/fonts/vivo-type-Regular.eot");
+    src: url("./assets/fonts/vivo-type-Regular.eot?#iefix") format("embedded-opentype"),
+        url("./assets/fonts/vivo-type-Regular.woff2") format("woff2"),
+        url("./assets/fonts/vivo-type-Regular.woff") format("woff"),
+        url("./assets/fonts/vivo-type-Regular.ttf") format("truetype"),
+        url("./assets/fonts/vivo-type-Regular.svg#VCustom FontS Medium") format("svg");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -43,11 +43,16 @@ body {
     width: 100vw;
     height: 100vh;
     font-family: vivo;
-    background-image: url(./assets/images/background/logo.png),
-        url(./assets/images/background/background.png);
+    background-image: url(./assets/images/common/logo.png),
+        url(./assets/images/common/background.png);
     background-position: calc(60 / @page-w * 100%) calc(30 / @page-h * 100%), center;
     background-size: calc(166 / @page-w * 100%) auto, calc(76 / @page-w * 100%) auto;
     background-repeat: no-repeat, repeat;
+}
+
+img {
+    pointer-events: none;
+    user-select: none;
 }
 
 .btn-touched,

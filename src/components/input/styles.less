@@ -1,0 +1,50 @@
+@import "../../mixins.less";
+
+.input-container {
+    display: flex;
+    position: relative;
+    width: calc(635 * @x-scale);
+    height: calc(89 * @y-scale);
+    color: #ffe7af;
+    line-height: calc(38 * @y-scale);
+    font-size: calc(34 * @x-scale);
+    font-weight: 300;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    width: calc(127 * @x-scale);
+    height: 100%;
+    padding: calc(8 * @y-scale) calc(5 * @x-scale) calc(8 * @y-scale) calc(40 * @x-scale);
+    // text-align: center;
+    background-color: #fa383b;
+}
+
+.input {
+    width: calc(508 * @x-scale);
+    padding-right: calc(40 * @x-scale);
+    caret-color: #ffe7af;
+    text-align: right;
+    outline: none;
+    border: none;
+    background-color: #ad0e10;
+}
+
+@supports (-webkit-mask: none) and (not (cater-color: red)) {
+    .input {
+        color: #ffe7af;
+    }
+
+    .input::first-line {
+        color: #ffe7af;
+    }
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(635 * @x-scale);
+    height: calc(89 * @y-scale);
+}

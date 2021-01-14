@@ -6,10 +6,64 @@
     height: 100vh;
 }
 
+.mask {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.77);
+    z-index: 1;
+
+    .popup {
+        position: absolute;
+        top: calc(184 * @y-scale);
+        left: calc(173 * @x-scale);
+        width: calc(467 * @x-scale);
+        z-index: 2;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: calc(823 * @y-scale);
+        left: 0;
+        right: 0;
+        width: calc(59 * @x-scale);
+        margin: auto;
+        pointer-events: auto;
+        z-index: 2;
+    }
+}
+
 .head {
     position: absolute;
     right: 0;
     width: calc(736 * @x-scale);
+}
+
+.fireworks {
+    position: absolute;
+    top: calc(1035 * @y-scale);
+    left: calc(-19 * @x-scale);
+    width: calc(124 * @x-scale);
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: calc(137 * @y-scale);
+    width: 100vw;
+    padding: 0;
+    color: #fff1de;
+    line-height: calc(82 * @y-scale);
+
+    &-prize {
+        font-size: calc(68 * @x-scale);
+    }
+
+    &-name {
+        font-size: calc(36 * @x-scale);
+    }
 }
 
 .box {
@@ -40,11 +94,51 @@
 
 .prize {
     position: absolute;
-    bottom: calc(700 * @y-scale);
     left: 0;
     right: 0;
-    width: calc(200 * @x-scale);
     margin: auto;
+}
+
+.coupon {
+    bottom: calc(650 * @y-scale);
+    width: calc(260 * @x-scale);
+    transform: translateX(calc(-15 * @x-scale));
+}
+
+.earphone {
+    bottom: calc(640 * @y-scale);
+    width: calc(200 * @x-scale);
+    transform: translateX(calc(-10 * @x-scale));
+}
+
+.phone {
+    bottom: calc(650 * @y-scale);
+    width: calc(210 * @x-scale);
+    transform: translateX(calc(-10 * @x-scale));
+}
+
+.redEnvelope {
+    bottom: calc(635 * @y-scale);
+    width: calc(200 * @x-scale);
+    transform: translateX(calc(-12 * @x-scale));
+}
+
+.snacks {
+    bottom: calc(660 * @y-scale);
+    width: calc(280 * @x-scale);
+    transform: translateX(calc(-15 * @x-scale));
+}
+
+.tv {
+    bottom: calc(640 * @y-scale);
+    width: calc(280 * @x-scale);
+    transform: translateX(calc(-15 * @x-scale));
+}
+
+.watch {
+    bottom: calc(650 * @y-scale);
+    width: calc(230 * @x-scale);
+    transform: translateX(calc(-12 * @x-scale));
 }
 
 .flash {
@@ -58,7 +152,7 @@
     width: 100vw;
 }
 
-.open-btn {
+.big-btn {
     position: absolute;
     top: calc(1098 * @y-scale);
     left: 0;
@@ -67,4 +161,20 @@
     height: calc(119 * @y-scale);
     margin: auto;
     font-size: calc(53 * @x-scale);
+}
+
+.small-btn {
+    position: absolute;
+    top: calc(1098 * @y-scale);
+    width: calc(269 * @x-scale);
+    height: calc(81 * @y-scale);
+    font-size: calc(33 * @x-scale);
+}
+
+.small-btn-left {
+    left: calc(73 * @x-scale);
+}
+
+.small-btn-right {
+    left: calc(395 * @x-scale);
 }
