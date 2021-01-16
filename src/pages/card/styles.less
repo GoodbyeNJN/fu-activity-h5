@@ -15,16 +15,18 @@
 
 .big-card {
     position: absolute;
-    top: calc(154 * @y-scale);
+    top: calc(520 * @y-scale);
     left: calc(91 * @x-scale);
     width: calc(571 * @x-scale);
+    transform: translate(0, -50%);
+    pointer-events: auto;
 }
 
 .small-card-list {
     display: flex;
     justify-content: space-between;
     position: absolute;
-    top: calc(936 * @y-scale);
+    top: calc(970 * @y-scale);
     left: 0;
     right: 0;
     width: calc(690 * @x-scale);
@@ -33,17 +35,6 @@
     .small-card {
         position: relative;
         width: calc(130 * @x-scale);
-
-        .badge {
-            position: absolute;
-            right: 0;
-            width: calc(36 * @x-scale);
-            transform: translate(20%, -25%);
-        }
-
-        .card {
-            width: 100%;
-        }
     }
 }
 
@@ -55,4 +46,8 @@
     width: calc(313 * @x-scale);
     height: calc(93 * @y-scale);
     margin: auto;
+
+    &-disable {
+        filter: brightness(0.5);
+    }
 }

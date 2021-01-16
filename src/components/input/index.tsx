@@ -8,11 +8,11 @@ interface Props extends Input {
     label: string;
 }
 
-export default (props: Props) => {
-    const { className, style, label, ...restProps } = props;
+const Input: React.FC<Props> = props => {
+    const { className, label, ...restProps } = props;
 
     return (
-        <div className={className} style={style}>
+        <div className={className}>
             <div className={styles.inputContainer}>
                 <div className={styles.label}>{label}</div>
                 <input className={styles.input} {...restProps} />
@@ -22,3 +22,5 @@ export default (props: Props) => {
         </div>
     );
 };
+
+export default Input;

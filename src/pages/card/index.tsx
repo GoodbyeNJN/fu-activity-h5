@@ -1,44 +1,65 @@
+import { useState } from "react";
 import { history } from "umi";
+import classnames from "classnames";
 import styles from "./styles.less";
 
-import { card } from "@/assets/images";
+import { common, popup } from "@/assets/imgs";
 import Button from "@/components/button";
+import Card from "@/components/card";
+import RedCard from "@/components/red-card";
+import Popup from "@/components/popup";
 
-const { flippedCards, unflippedCards, smallCards } = card;
+type Icon = "a" | "b" | "c" | "d" | "e";
+type Word = "fu" | "yu" | "qian" | "wan" | "li";
+type Cards = (Word | undefined)[];
+
+const words: Word[] = ["fu", "yu", "qian", "wan", "li"];
+const icons: Icon[] = ["a", "b", "c", "d", "e"];
 
 export default () => {
+    const [cards, setCards] = useState<Cards>([undefined, undefined, undefined]);
+    const [show, setShow] = useState(false);
+
+    const updateShow = (flag: boolean) => {
+        if (!flag) {
+            const newCards = [...cards, undefined, undefined];
+            setCards(newCards);
+            setShow(false);
+        }
+    };
+
+    const onClick = () => {
+        if (cards.length < 5) {
+            setShow(true);
+            return;
+        } else {
+            history.push("/form");
+        }
+    };
+
     return (
         <div className={styles.container}>
-            <img src={card.head} className={styles.head} />
+            <Popup src={popup.share} show={show} setShow={updateShow} />
 
-            <div>
-                <img src={unflippedCards.a} className={styles.bigCard} />
-            </div>
+            <img src={common.pattern} className={styles.head} />
+
+            <Card className={styles.bigCard} cards={cards} setCards={setCards} />
 
             <div className={styles.smallCardList}>
-                <div className={styles.smallCard}>
-                    <img src={smallCards.badge0} className={styles.badge} />
-                    <img src={smallCards.fu} className={styles.card} />
-                </div>
-                <div className={styles.smallCard}>
-                    <img src={smallCards.badge0} className={styles.badge} />
-                    <img src={smallCards.yu} className={styles.card} />
-                </div>
-                <div className={styles.smallCard}>
-                    <img src={smallCards.badge0} className={styles.badge} />
-                    <img src={smallCards.qian} className={styles.card} />
-                </div>
-                <div className={styles.smallCard}>
-                    <img src={smallCards.badge0} className={styles.badge} />
-                    <img src={smallCards.wan} className={styles.card} />
-                </div>
-                <div className={styles.smallCard}>
-                    <img src={smallCards.badge0} className={styles.badge} />
-                    <img src={smallCards.li} className={styles.card} />
-                </div>
+                {words.map((word, index) => (
+                    <RedCard
+                        key={word}
+                        className={styles.smallCard}
+                        word={word}
+                        number={word === cards[index] ? 1 : 0}
+                    />
+                ))}
             </div>
 
-            <Button className={styles.btn} onClick={() => history.push("/")}>
+            <Button
+                className={classnames(styles.btn, cards.length < 5 && styles.btnDisable)}
+                onClick={onClick}
+            >
                 立即合成
             </Button>
         </div>

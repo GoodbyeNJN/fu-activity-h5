@@ -1,0 +1,30 @@
+@import "../../mixins.less";
+
+.container {
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(36 * @x-scale);
+    height: calc(36 * @x-scale);
+    transform: translate(30%, -30%);
+}
+
+.word {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(30 * @x-scale);
+    height: calc(30 * @x-scale);
+    transform: translate(-60%, -60%);
+}
+
+.card {
+    width: calc(127 * @x-scale);
+    height: calc(181 * @x-scale);
+    border: calc(3 * @x-scale) solid #f8e1ab;
+    border-radius: calc(10 * @x-scale);
+}

@@ -2,6 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import styles from "./styles.less";
 import { useTouch } from "@/utils/hooks";
+import utils from "@/utils";
 
 type Button = React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -12,7 +13,9 @@ interface Props extends Button {
     test?: string;
 }
 
-export default (props: Props) => {
+const isSafari = utils.isSafari() && utils.isIos();
+
+const Button: React.FC<Props> = props => {
     const { children, className, style, ...restProps } = props;
 
     const button = useTouch(styles.button);
@@ -22,7 +25,12 @@ export default (props: Props) => {
             <button className={button.className} {...button.handlers} {...restProps}>
                 <div className={styles.content}>{children}</div>
 
-                <div className={styles.border}>
+                <div
+                    className={classnames(
+                        styles.border,
+                        isSafari ? styles.isSafari : styles.isNotSafari,
+                    )}
+                >
                     <div className={classnames(styles.corner, styles.topLeft)}>
                         <div className={styles.outer} />
                         <div className={styles.inner} />
@@ -48,3 +56,5 @@ export default (props: Props) => {
         </div>
     );
 };
+
+export default Button;

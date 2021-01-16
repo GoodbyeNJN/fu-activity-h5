@@ -39,8 +39,7 @@
     background: none;
 }
 
-.border-gradient(@border-width) {
-    border: @border-width solid transparent;
+.border-gradient() {
     border-image-source: linear-gradient(
         to right,
         #c19c62 0%,
@@ -85,7 +84,6 @@
         .outer {
             width: calc(@corner-outer-w * @x-scale-btn);
             height: calc(@corner-outer-h * @x-scale-btn);
-            .border-gradient(calc(@corner-outer-thickness * @x-scale-btn));
         }
 
         .inner {
@@ -94,7 +92,6 @@
             left: calc(@corner-inner-l * @x-scale-btn);
             width: calc(@corner-inner-w * @x-scale-btn);
             height: calc(@corner-inner-h * @x-scale-btn);
-            .border-gradient(calc(@corner-inner-thickness * @x-scale-btn));
         }
     }
 
@@ -109,7 +106,6 @@
             bottom: calc(@center-outer-b * @y-scale-btn);
             left: calc(@center-outer-l * @x-scale-btn);
             right: calc(@center-outer-r * @x-scale-btn);
-            .border-gradient(calc(@center-outer-thickness * @x-scale-btn));
         }
 
         .inner {
@@ -118,7 +114,58 @@
             bottom: calc(@center-inner-b * @y-scale-btn);
             left: calc(@center-inner-l * @x-scale-btn);
             right: calc(@center-inner-r * @x-scale-btn);
-            .border-gradient(calc(@center-inner-thickness * @x-scale-btn));
+        }
+    }
+}
+
+.is-safari {
+    .corner {
+        .outer {
+            border-width: calc(@corner-outer-thickness * @x-scale-btn);
+            .border-gradient();
+        }
+
+        .innter {
+            border-width: calc(@corner-inner-thickness * @x-scale-btn);
+            .border-gradient();
+        }
+    }
+
+    .center {
+        .outer {
+            border-width: calc(@center-outer-thickness * @x-scale-btn);
+            .border-gradient();
+        }
+
+        .innter {
+            border-width: calc(@center-inner-thickness * @x-scale-btn);
+            .border-gradient();
+        }
+    }
+}
+
+.is-not-safari {
+    .corner {
+        .outer {
+            border: calc(@corner-outer-thickness * @x-scale-btn) solid transparent;
+            .border-gradient();
+        }
+
+        .innter {
+            border: calc(@corner-inner-thickness * @x-scale-btn) solid transparent;
+            .border-gradient();
+        }
+    }
+
+    .center {
+        .outer {
+            border: calc(@center-outer-thickness * @x-scale-btn) solid transparent;
+            .border-gradient();
+        }
+
+        .innter {
+            border: calc(@center-inner-thickness * @x-scale-btn) solid transparent;
+            .border-gradient();
         }
     }
 }

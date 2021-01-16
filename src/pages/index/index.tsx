@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { history } from "umi";
 import { useTouch } from "@/utils/hooks";
 import styles from "./styles.less";
@@ -5,9 +6,15 @@ import styles from "./styles.less";
 import { btn, index } from "@/assets/images";
 import Button from "@/components/button";
 
+import { login } from "@/utils/login";
+
 export default () => {
     const giftBtn = useTouch(styles.giftBtn);
     const ruleBtn = useTouch(styles.ruleBtn);
+
+    useEffect(() => {
+        login();
+    }, []);
 
     return (
         <div className={styles.container}>

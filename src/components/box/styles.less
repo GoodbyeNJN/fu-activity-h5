@@ -1,0 +1,79 @@
+@import "../../mixins.less";
+
+.container {
+    position: relative;
+    width: 100vw;
+}
+
+.border {
+    // position: absolute;
+    width: 100%;
+}
+
+.close {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(559 * @x-scale);
+    transform: translate(-48%, -40%);
+}
+
+.open {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(588 * @x-scale);
+    transform: translate(-50%, -60%);
+}
+
+.flash {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    transform: translate(-50%, -90%);
+    z-index: 1;
+}
+
+.prize {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+}
+
+.phone {
+    width: calc(276 * @x-scale);
+    transform: translate(-50%, -80%);
+}
+
+.watch {
+    width: calc(276 * @x-scale);
+    transform: translate(-60%, -80%);
+}
+
+.earphone {
+    width: calc(226 * @x-scale);
+    transform: translate(-50%, -80%);
+}
+
+.snacks {
+    width: calc(357 * @x-scale);
+    transform: translate(-50%, -85%);
+}
+
+.coupon-1,
+.coupon-2 {
+    width: calc(375 * @x-scale);
+    transform: translate(-50%, -80%);
+}
+
+.tv {
+    width: calc(357 * @x-scale);
+    transform: translate(-50%, -80%);
+}
+
+.red-envelope {
+    width: calc(278 * @x-scale);
+    transform: translate(-50%, -80%);
+}

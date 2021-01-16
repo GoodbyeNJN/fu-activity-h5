@@ -7,4 +7,5 @@ export default defineConfig({
     cssLoader: {
         localsConvention: "camelCaseOnly",
     },
+    antd: {},
 });

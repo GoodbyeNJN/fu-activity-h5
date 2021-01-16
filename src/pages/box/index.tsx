@@ -5,6 +5,7 @@ import styles from "./styles.less";
 
 import { common, btn, box } from "@/assets/images";
 import Button from "@/components/button";
+import Box from "@/components/box";
 
 import api from "@/api";
 
@@ -106,36 +107,10 @@ export default () => {
                 </div>
             )}
 
-            <div>
-                <img src={module.container} className={styles.boxContainer} />
-
-                {isOpened && prizeKey ? (
-                    <>
-                        <div className={styles.title}>
-                            <div className={styles.titlePrize}>{prizeMap[prizeKey].prize}</div>
-                            <div className={styles.titleName}>{prizeMap[prizeKey].name}</div>
-                        </div>
-
-                        <img src={module.open} className={styles.boxOpen} />
-                        <img src={module.flash} className={styles.flash} />
-                        <img
-                            src={prizeMap[prizeKey].src}
-                            className={classnames(
-                                styles.prize,
-                                styles[prizeMap[prizeKey].className],
-                            )}
-                        />
-                    </>
-                ) : (
-                    <>
-                        <img src={module.close} className={styles.boxClose} />
-                        <img src={module.spotlight} className={styles.spotlight} />
-                    </>
-                )}
-            </div>
-
             <img src={box.head} className={styles.head} />
             <img src={common.fireworks} className={styles.fireworks} />
+
+            <Box className={styles.box} open={isOpened} />
 
             {isRedEnvelope ? (
                 <>
