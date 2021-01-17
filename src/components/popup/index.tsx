@@ -8,12 +8,13 @@ import { btn, popup } from "@/assets/imgs";
 export interface Props {
     className?: string;
     show: boolean;
-    setShow: (show: boolean) => void;
+    setShow?: (show: boolean) => void;
     src?: string;
+    noBtn?: boolean;
 }
 
 const Popup: React.FC<Props> = props => {
-    const { children, className, show, setShow, src } = props;
+    const { children, className, show, setShow = () => {}, src, noBtn } = props;
 
     const close = useTouch(styles.close);
 
@@ -28,12 +29,14 @@ const Popup: React.FC<Props> = props => {
                 <img src={src ?? popup.long} className={styles.popup} />
             </div>
 
-            <img
-                src={btn.close}
-                className={close.className}
-                {...close.handlers}
-                onClick={() => setShow(false)}
-            />
+            {!noBtn && (
+                <img
+                    src={btn.close}
+                    className={close.className}
+                    {...close.handlers}
+                    onClick={() => setShow(false)}
+                />
+            )}
         </div>
     );
 };

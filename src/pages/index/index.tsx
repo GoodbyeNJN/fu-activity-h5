@@ -1,20 +1,26 @@
-import { useEffect } from "react";
-import { history } from "umi";
+import { history, useRequest } from "umi";
 import { useTouch } from "@/utils/hooks";
+import { Toast } from "antd-mobile";
 import styles from "./styles.less";
 
-import { btn, index } from "@/assets/images";
+import { btn, index } from "@/assets/imgs";
 import Button from "@/components/button";
+import Loading from "@/components/loading";
 
 import { login } from "@/utils/login";
 
-export default () => {
+const Index = () => {
     const giftBtn = useTouch(styles.giftBtn);
     const ruleBtn = useTouch(styles.ruleBtn);
 
-    useEffect(() => {
-        login();
-    }, []);
+    const { error, loading } = useRequest(login);
+
+    if (error) {
+        Toast.fail(error.message);
+    }
+    if (loading) {
+        return <Loading fullScreen />;
+    }
 
     return (
         <div className={styles.container}>
@@ -39,3 +45,5 @@ export default () => {
         </div>
     );
 };
+
+export default Index;

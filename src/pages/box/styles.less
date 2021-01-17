@@ -2,91 +2,107 @@
 
 .container {
     position: relative;
-    width: 100vw;
-    height: 100vh;
-}
-
-.mask {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.77);
-    z-index: 1;
-
-    .popup {
-        position: absolute;
-        top: calc(184 * @y-scale);
-        left: calc(173 * @x-scale);
-        width: calc(467 * @x-scale);
-        z-index: 2;
-    }
-
-    .close-btn {
-        position: absolute;
-        top: calc(823 * @y-scale);
-        left: 0;
-        right: 0;
-        width: calc(59 * @x-scale);
-        margin: auto;
-        pointer-events: auto;
-        z-index: 2;
-    }
-}
-
-.head {
-    position: absolute;
-    right: 0;
-    width: calc(736 * @x-scale);
+    width: 100%;
+    height: 100%;
 }
 
 .fireworks {
     position: absolute;
-    top: calc(1035 * @y-scale);
-    left: calc(-19 * @x-scale);
-    width: calc(124 * @x-scale);
+    top: calc(-33 * @x);
+    right: calc(36 * @x);
+    width: calc(246 * @x);
+}
+
+.head {
+    position: absolute;
+    top: calc(95 * @x);
+    right: 0;
+    width: calc(736 * @x);
 }
 
 .box {
     position: absolute;
-    top: calc(686 * @y-scale);
+    top: calc(301 * @x);
     left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.flash {
-    position: absolute;
-    top: calc(215 * @y-scale);
-    width: 100vw;
-}
-
-.spotlight {
-    position: absolute;
-    width: 100vw;
+    transform: translate(-50%, 0);
 }
 
 .big-btn {
     position: absolute;
-    top: calc(1098 * @y-scale);
+    top: calc(1098 * @x);
     left: 0;
     right: 0;
-    width: calc(396 * @x-scale);
-    height: calc(119 * @y-scale);
+    width: calc(396 * @x);
+    height: calc(119 * @x);
     margin: auto;
-    font-size: calc(53 * @x-scale);
+    font-size: calc(53 * @x);
 }
 
 .small-btn {
     position: absolute;
-    top: calc(1098 * @y-scale);
-    width: calc(269 * @x-scale);
-    height: calc(81 * @y-scale);
-    font-size: calc(33 * @x-scale);
+    top: calc(1098 * @x);
+    width: calc(269 * @x);
+    height: calc(81 * @x);
+    font-size: calc(33 * @x);
 }
 
 .small-btn-left {
-    left: calc(73 * @x-scale);
+    left: calc(73 * @x);
 }
 
 .small-btn-right {
-    left: calc(395 * @x-scale);
+    left: calc(395 * @x);
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: calc(137 * @x);
+    width: 100vw;
+    padding: 0;
+    color: #fff1de;
+    line-height: calc(82 * @x);
+
+    &-prize {
+        font-size: calc(68 * @x);
+    }
+
+    &-name {
+        font-size: calc(36 * @x);
+    }
+}
+
+.v-card-popup {
+    position: absolute;
+    width: @page-w;
+    height: @page-h;
+}
+
+.popup > div {
+    width: calc(750 * @x);
+    transform: translate(-50%, -65%);
+}
+
+.popup-btn {
+    position: absolute;
+    top: calc(940 * @x);
+    left: 50%;
+    width: calc(260 * @x);
+    height: calc(80 * @x);
+    transform: translate(-50%, 0);
+    z-index: 10;
+}
+
+.popup-title {
+    position: absolute;
+    top: calc(130 * @x);
+    left: 50%;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    font-size: calc(40 * @x);
+    transform: translate(-50%, 0);
+    z-index: 10;
 }

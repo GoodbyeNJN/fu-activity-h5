@@ -1,141 +1,147 @@
 import { useMemo, useState } from "react";
 import { history, useRequest } from "umi";
+import { Toast } from "antd-mobile";
 import classnames from "classnames";
 import styles from "./styles.less";
 
-import { common, btn, box } from "@/assets/images";
+import { common, fireworks, popup } from "@/assets/imgs";
+import { PrizeWithoutKoi, prizeInfoMap } from "@/utils/constant";
 import Button from "@/components/button";
-import Box from "@/components/box";
+import Boxes, { Prize } from "@/components/box";
+import Popup from "@/components/popup";
+import Loading from "@/components/loading";
 
 import api from "@/api";
+import { getArea } from "@/utils";
 
-type PrizeKey = "coupon" | "earphone" | "phone" | "redEnvelope" | "snacks" | "tv" | "watch";
-type PrizeMap = {
-    [k in PrizeKey]: {
-        prize: string;
-        name: string;
-        src: string;
-        className: PrizeKey;
-    };
-};
-
-const { module, prize } = box;
-const prizeMap: PrizeMap = {
-    coupon: {
-        prize: "特等奖",
-        name: "2021元以旧换新券",
-        src: prize.coupon,
-        className: "coupon",
-    },
-    earphone: {
-        prize: "三等奖",
-        name: "vivo TWS Neo真无线耳机",
-        src: prize.earphone,
-        className: "earphone",
-    },
-    phone: {
-        prize: "一等奖",
-        name: "X60手机",
-        src: prize.phone,
-        className: "earphone",
-    },
-    redEnvelope: {
-        prize: "五等奖",
-        name: "6.6元红包",
-        src: prize.redEnvelope,
-        className: "redEnvelope",
-    },
-    snacks: {
-        prize: "四等奖",
-        name: "良品铺子年货礼盒",
-        src: prize.snacks,
-        className: "snacks",
-    },
-    tv: {
-        prize: "特等奖",
-        name: "液晶电视",
-        src: prize.tv,
-        className: "tv",
-    },
-    watch: {
-        prize: "二等奖",
-        name: "vivo WATCH智能手表",
-        src: prize.watch,
-        className: "watch",
-    },
-};
-
-export default () => {
-    const [isOpened, setIsOpened] = useState(false);
+const Box = () => {
     const [isPoped, setIsPoped] = useState(false);
+    const [showVCard, setShowVCard] = useState(false);
 
-    const openBox = useRequest(() => api.openBox, { manual: true });
+    const { run, data, error, loading } = useRequest(api.getLotteryResult, { manual: true });
 
-    const [isRedEnvelope, prizeKey] = useMemo<[boolean, PrizeKey?]>(() => {
-        if (openBox.data && prizeMap[openBox.data]) {
-            setIsOpened(true);
+    if (error) {
+        Toast.fail(error.message);
+    }
 
-            if (openBox.data === "redEnvelope") {
-                setIsPoped(true);
-
-                return [true, openBox.data];
-            } else {
-                return [false, openBox.data];
-            }
-        } else {
-            return [false];
+    const [prizeId, prizeKey] = useMemo<[PrizeWithoutKoi?, Prize?]>(() => {
+        if (!data) {
+            return [];
         }
-    }, [openBox.data]);
 
-    const jumpToPage = (prizeKey: PrizeKey | "vCard") => {
+        const prizeId = data.prize.prize_id;
+        if (prizeId === "koi") {
+            return [];
+        }
+        if (prizeId === "coupon") {
+            return [prizeId, "coupon1"];
+            // return [prizeId, "coupon2"];
+        }
+        if (prizeId === "redEnvelope") {
+            setIsPoped(true);
+        }
+
+        return [prizeId, prizeId];
+    }, [data]);
+
+    const startLottery = () => {
+        const area = getArea();
+        run(area);
+    };
+
+    const acceptRedEnvelope = async () => {
+        try {
+            await api.acceptRedPack();
+            history.push({
+                pathname: "/form",
+                query: { from: "box" },
+            });
+        } catch (error) {
+            Toast.fail(error.message);
+        }
+    };
+
+    const acceptVCard = async () => {
+        try {
+            await api.acceptVCard();
+            setShowVCard(false);
+            history.push({
+                pathname: "/form",
+                query: { from: "box" },
+            });
+        } catch (error) {
+            Toast.fail(error.message);
+        }
+    };
+
+    const jumpToForm = () => {
         history.push({
             pathname: "/form",
-            query: { prize: prizeKey },
+            query: { from: "box" },
         });
     };
 
+    if (!prizeKey || !prizeId) {
+        return (
+            <div className={styles.container}>
+                <img src={fireworks.big} className={styles.fireworks} />
+                <img src={common.pattern} className={styles.head} />
+
+                {loading && <Loading />}
+                <Boxes className={styles.box} />
+
+                <Button className={styles.bigBtn} onClick={startLottery}>
+                    打开福盒
+                </Button>
+            </div>
+        );
+    }
+
     return (
         <div className={styles.container}>
-            {isPoped && (
-                <div className={styles.mask}>
-                    <img src={box.popup} className={styles.popup} />
-                    <img
-                        src={btn.close}
-                        className={styles.closeBtn}
-                        onClick={() => setIsPoped(false)}
-                    />
+            <Popup src={popup.redEnvelope} show={isPoped} setShow={setIsPoped} />
+            {showVCard && (
+                <div className={styles.vCardPopup}>
+                    <div className={styles.popupTitle}>2021年2月11日24点开奖</div>
+                    <Popup src={popup.vCard} className={styles.popup} show={showVCard} noBtn />
+                    <Button className={styles.popupBtn} onClick={acceptVCard}>
+                        收下V卡
+                    </Button>
                 </div>
             )}
 
-            <img src={box.head} className={styles.head} />
-            <img src={common.fireworks} className={styles.fireworks} />
+            <img src={fireworks.big} className={styles.fireworks} />
+            <img src={common.pattern} className={styles.head} />
 
-            <Box className={styles.box} open={isOpened} />
+            <div className={styles.title}>
+                <div className={styles.titlePrize}>{prizeInfoMap[prizeId].level}</div>
+                <div className={styles.titleName}>{prizeInfoMap[prizeId].name}</div>
+            </div>
 
-            {isRedEnvelope ? (
+            <Boxes className={styles.box} prize={prizeKey} />
+
+            {prizeKey === "redEnvelope" ? (
                 <>
                     <Button
                         className={classnames(styles.smallBtn, styles.smallBtnLeft)}
-                        onClick={() => jumpToPage("redEnvelope")}
+                        onClick={acceptRedEnvelope}
                     >
                         收下红包
                     </Button>
                     <Button
                         className={classnames(styles.smallBtn, styles.smallBtnRight)}
-                        onClick={() => jumpToPage("vCard")}
+                        onClick={() => setShowVCard(true)}
                     >
                         兑换V卡
                     </Button>
                 </>
-            ) : isOpened && prizeKey ? (
-                <Button className={styles.bigBtn} onClick={() => jumpToPage(prizeKey)}>
-                    立即收下
-                </Button>
             ) : (
-                <Button className={styles.bigBtn} onClick={openBox.run}>
-                    打开福盒
+                <Button className={styles.bigBtn} onClick={jumpToForm}>
+                    立即收下
                 </Button>
             )}
         </div>
     );
 };
+
+export default Box;

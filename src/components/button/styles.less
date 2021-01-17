@@ -5,8 +5,7 @@
 @btn-design-w: 2919;
 @btn-design-h: 871;
 
-@x-scale-btn: calc(@btn-actual-w / @btn-design-w * @x-scale);
-@y-scale-btn: calc(@btn-actual-h / @btn-design-h * @y-scale);
+@x-btn: calc(@btn-actual-w / @btn-design-w * @x);
 
 @corner-outer-w: 200;
 @corner-outer-h: 200;
@@ -37,18 +36,20 @@
     border: none;
     outline: none;
     background: none;
+    font-family: "vivo";
 }
 
-.border-gradient() {
-    border-image-source: linear-gradient(
-        to right,
-        #c19c62 0%,
-        #ece2b9 26%,
-        #c19c62 45%,
-        #ece2b9 76%,
-        #a58053 100%
-    );
-    border-image-slice: 1;
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc((@center-inner-t + @center-inner-thickness) * @x-btn);
+    bottom: calc((@center-inner-b + @center-inner-thickness) * @x-btn);
+    left: calc((@center-inner-l + @center-inner-thickness) * @x-btn);
+    right: calc((@center-inner-r + @center-inner-thickness) * @x-btn);
+    color: #c7261f;
+    font-size: calc(46 * @x);
 }
 
 .border {
@@ -57,129 +58,5 @@
     left: 0;
     width: 100%;
     height: 100%;
-
-    .top-left {
-        top: 0;
-        left: 0;
-    }
-
-    .top-right {
-        top: 0;
-        right: 0;
-    }
-
-    .bottom-left {
-        bottom: 0;
-        left: 0;
-    }
-
-    .bottom-right {
-        bottom: 0;
-        right: 0;
-    }
-
-    .corner {
-        position: absolute;
-
-        .outer {
-            width: calc(@corner-outer-w * @x-scale-btn);
-            height: calc(@corner-outer-h * @x-scale-btn);
-        }
-
-        .inner {
-            position: absolute;
-            top: calc(@corner-inner-t * @y-scale-btn);
-            left: calc(@corner-inner-l * @x-scale-btn);
-            width: calc(@corner-inner-w * @x-scale-btn);
-            height: calc(@corner-inner-h * @x-scale-btn);
-        }
-    }
-
-    .center {
-        position: relative;
-        width: 100%;
-        height: 100%;
-
-        .outer {
-            position: absolute;
-            top: calc(@center-outer-t * @y-scale-btn);
-            bottom: calc(@center-outer-b * @y-scale-btn);
-            left: calc(@center-outer-l * @x-scale-btn);
-            right: calc(@center-outer-r * @x-scale-btn);
-        }
-
-        .inner {
-            position: absolute;
-            top: calc(@center-inner-t * @y-scale-btn);
-            bottom: calc(@center-inner-b * @y-scale-btn);
-            left: calc(@center-inner-l * @x-scale-btn);
-            right: calc(@center-inner-r * @x-scale-btn);
-        }
-    }
-}
-
-.is-safari {
-    .corner {
-        .outer {
-            border-width: calc(@corner-outer-thickness * @x-scale-btn);
-            .border-gradient();
-        }
-
-        .innter {
-            border-width: calc(@corner-inner-thickness * @x-scale-btn);
-            .border-gradient();
-        }
-    }
-
-    .center {
-        .outer {
-            border-width: calc(@center-outer-thickness * @x-scale-btn);
-            .border-gradient();
-        }
-
-        .innter {
-            border-width: calc(@center-inner-thickness * @x-scale-btn);
-            .border-gradient();
-        }
-    }
-}
-
-.is-not-safari {
-    .corner {
-        .outer {
-            border: calc(@corner-outer-thickness * @x-scale-btn) solid transparent;
-            .border-gradient();
-        }
-
-        .innter {
-            border: calc(@corner-inner-thickness * @x-scale-btn) solid transparent;
-            .border-gradient();
-        }
-    }
-
-    .center {
-        .outer {
-            border: calc(@center-outer-thickness * @x-scale-btn) solid transparent;
-            .border-gradient();
-        }
-
-        .innter {
-            border: calc(@center-inner-thickness * @x-scale-btn) solid transparent;
-            .border-gradient();
-        }
-    }
-}
-
-.content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: calc((@center-inner-t + @center-inner-thickness) * @y-scale-btn);
-    bottom: calc((@center-inner-b + @center-inner-thickness) * @y-scale-btn);
-    left: calc((@center-inner-l + @center-inner-thickness) * @x-scale-btn);
-    right: calc((@center-inner-r + @center-inner-thickness) * @x-scale-btn);
-    color: #c7261f;
-    font-size: calc(46 * @x-scale);
-    background-color: #f8d99f;
+    z-index: -1;
 }

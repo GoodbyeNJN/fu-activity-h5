@@ -1,43 +1,45 @@
-import React, { useState } from "react";
-import { history } from "umi";
+import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import styles from "./styles.less";
 
 import "animate.css";
 
 import { card } from "@/assets/imgs";
+import { Card as CardType, cards, icons, cardInfoMap } from "@/utils/constant";
 
-type Icon = "a" | "b" | "c" | "d" | "e";
-type Word = "fu" | "yu" | "qian" | "wan" | "li";
-type Cards = (Word | undefined)[];
+type CardList = CardType[];
 
 export interface Props {
     className?: string;
-    cards: Cards;
-    setCards: (cards: Cards) => void;
+    cardList: CardList;
+    setCardList: (cardList: CardList) => void;
+    openedList: boolean[];
+    setOpenedList: (openedList: boolean[]) => void;
+    onOpenedAll: () => void;
 }
 
 const { covered, opened } = card;
 
-const words: Word[] = ["fu", "yu", "qian", "wan", "li"];
-const icons: Icon[] = ["a", "b", "c", "d", "e"];
-
 const Card: React.FC<Props> = props => {
-    const { className, cards, setCards } = props;
+    const { className, cardList, setCardList, openedList, setOpenedList, onOpenedAll } = props;
 
     const [index, setIndex] = useState<number>(0);
 
+    useEffect(() => {
+        !openedList.includes(false) && onOpenedAll();
+    }, [onOpenedAll, openedList]);
+
     const openCard = () => {
-        const newCards = [...cards];
-        newCards[index] = words[index];
-        setCards(newCards);
+        const newState = [...openedList];
+        newState[index] = true;
+        setOpenedList(newState);
     };
 
     const onToggle = (flag: 1 | -1) => {
         if (flag < 0) {
-            index === 0 ? setIndex(cards.length - 1) : setIndex(prev => prev - 1);
+            index === 0 ? setIndex(cardList.length - 1) : setIndex(prev => prev - 1);
         } else {
-            index === cards.length - 1 ? setIndex(0) : setIndex(prev => prev + 1);
+            index === cardList.length - 1 ? setIndex(0) : setIndex(prev => prev + 1);
         }
     };
 
@@ -48,11 +50,13 @@ const Card: React.FC<Props> = props => {
                 className={classnames(styles.arrow, styles.left)}
                 onClick={() => onToggle(-1)}
             />
-            {cards[index] ? (
+            {openedList[index] ? (
                 <img
-                    src={opened[cards[index] ?? "fu"]}
+                    src={opened[cardList[index]]}
                     className={styles.opened}
-                    onClick={() => history.push("/")}
+                    onClick={() => {
+                        window.location.href = cardInfoMap[cardList[index]].link;
+                    }}
                 />
             ) : (
                 <img src={covered[icons[index]]} className={styles.covered} onClick={openCard} />
@@ -65,7 +69,7 @@ const Card: React.FC<Props> = props => {
 
             <img src={card.border} className={styles.border} />
 
-            <div className={styles.text}>哇！恭喜获得{cards.length}张福卡！</div>
+            <div className={styles.text}>哇！恭喜获得{cardList.length}张福卡！</div>
         </div>
     );
 };

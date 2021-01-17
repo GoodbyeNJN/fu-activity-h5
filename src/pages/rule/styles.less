@@ -2,69 +2,74 @@
 
 .container {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 .fireworks {
     position: absolute;
-    top: calc(-33 * @y-scale);
-    right: calc(38 * @y-scale);
-    width: calc(246 * @x-scale);
+    top: calc(-33 * @x);
+    right: calc(38 * @x);
+    width: calc(246 * @x);
 }
 
 .content {
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: calc(115 * @y-scale);
+    top: calc(115 * @x);
     left: 0;
     right: 0;
-    width: calc(677 * @x-scale);
+    width: calc(677 * @x);
     margin: auto;
-    padding: 0 calc(17 * @x-scale);
-    border: calc(5 * @x-scale) solid #ffe7af;
-    border-radius: calc(20 * @x-scale);
+    padding: 0 calc(17 * @x);
+    border: calc(5 * @x) solid #ffe7af;
+    border-radius: calc(20 * @x);
     background-color: rgba(150, 7, 8, 0.57);
 
     &-title {
         align-self: center;
         margin: 0;
         color: #f8d99f;
-        font-size: calc(46.71 * @x-scale);
-        line-height: calc(62 * @y-scale);
+        font-size: calc(46.71 * @x);
+        line-height: calc(62 * @x);
     }
 
     &-text {
         color: #fff;
         text-align: justify;
         font-weight: 300;
-        font-size: calc(18 * @x-scale);
-        line-height: calc(18 * @y-scale);
+        font-size: calc(18 * @x);
+        line-height: calc(18 * @x);
 
         > p {
-            margin-bottom: calc(18 * @y-scale);
+            margin-bottom: calc(18 * @x);
+        }
+
+        > p > span {
+            color: #ab1512;
+            background-color: #f8d99f;
         }
     }
 }
 
 .prize-container {
-    margin-bottom: calc(20 * @y-scale);
+    margin-bottom: calc(20 * @x);
 
     .line {
         display: flex;
         justify-content: space-between;
         width: 100%;
-        margin-bottom: calc(9 * @y-scale);
+        margin-bottom: calc(9 * @x);
 
         > div {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: calc(106 * @x-scale);
+            width: calc(106 * @x);
 
             > p {
-                margin-bottom: calc(9 * @y-scale);
+                margin-bottom: calc(9 * @x);
                 text-align: center;
             }
 
@@ -77,10 +82,10 @@
 
 .btn {
     position: absolute;
-    top: calc(1174 * @y-scale);
+    top: calc(1174 * @x);
     left: 0;
     right: 0;
-    width: calc(313 * @x-scale);
-    height: calc(93 * @y-scale);
+    width: calc(313 * @x);
+    height: calc(93 * @x);
     margin: auto;
 }

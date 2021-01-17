@@ -1,7 +1,18 @@
+import { history } from "umi";
 import { extend } from "umi-request";
-import { getToken } from "@/utils/login";
+import { getToken, setToken } from "@/utils/login";
+
+const env = process.env.NODE_ENV;
+
+const baseUrl = {
+    test: "https://hbvivo.gzwindflag.com",
+    development: "https://hbvivo.gzwindflag.com",
+    production: "http://hbvivo-api-test.gzwindflag.com",
+    // production: "https://hbvivo-api.gzwindflag.com",
+};
 
 export const request = extend({
+    prefix: baseUrl[env],
     headers: {
         "Content-Type": "application/json",
         Token: getToken(),
@@ -11,14 +22,20 @@ export const request = extend({
     parseResponse: true,
     errorHandler: error => {
         if (error.response) {
+            console.log("error.response:", error.response);
+
+            if (error.response.status === 401) {
+                setToken("");
+                history.push("/");
+                return;
+            }
+
             // 请求已发送但服务端返回状态码非 2xx 的响应
-            console.log(error.response.status);
-            console.log(error.response.headers);
-            console.log(error.data);
+            else console.log(error.data);
             console.log(error.request);
         } else {
             // 请求初始化时出错或者没有响应返回的异常
-            console.log(error.message);
+            console.error(error.message);
         }
 
         // 如果throw. 错误将继续抛出.

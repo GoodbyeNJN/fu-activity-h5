@@ -2,8 +2,8 @@
 
 .container {
     position: absolute;
-    width: 100vw;
-    height: 100vh;
+    width: @page-w;
+    height: @page-h;
     background-color: rgba(0, 0, 0, 0.77);
     z-index: 1;
 }
@@ -12,15 +12,15 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: calc(570 * @x-scale);
-    transform: translate(calc(-50% + 30 * @x-scale), calc(-65% - 60 * @y-scale));
+    width: calc(570 * @x);
+    transform: translate(calc(-50% + 30 * @x), calc(-65% - 60 * @x));
 
     .text {
         position: absolute;
-        top: calc(70 * @x-scale);
+        top: calc(70 * @x);
         left: 0;
-        width: calc(100% - 61 * @x-scale);
-        height: calc(100% - 70 * @x-scale);
+        width: calc(100% - 61 * @x);
+        height: calc(100% - 70 * @x);
         z-index: 2;
     }
 
@@ -35,8 +35,8 @@
     top: 70%;
     left: 0;
     right: 0;
-    width: calc(60 * @x-scale);
-    height: calc(60 * @x-scale);
+    width: calc(60 * @x);
+    height: calc(60 * @x);
     margin: auto;
     pointer-events: auto;
 }

@@ -1,3 +1,5 @@
+import { history } from "umi";
+
 import api from "@/api";
 
 const appid = "wxdf2b45713a6dde6d";
@@ -28,11 +30,14 @@ export const setToken = (token: string) => {
 };
 
 export const wxLogin = (state = "logged") => {
-    const redirectUri = encodeURIComponent(window.location.href);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("code");
+    url.searchParams.delete("state");
+    const redirectUri = encodeURIComponent(url.toString());
 
-    const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
+    const loginUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
 
-    window.location.href = url;
+    window.location.href = loginUrl;
 };
 
 export const login = async () => {
@@ -40,15 +45,23 @@ export const login = async () => {
     const token = getToken();
 
     if (token) {
-        return;
+        return true;
     }
 
     if (!code) {
         return wxLogin();
     }
 
-    const res = await api.login(code);
-    setToken(res?.data?.token ?? "");
+    try {
+        const res = await api.login(code);
+        if (res.errcode) {
+            throw res;
+        }
+
+        setToken(res.data.token ?? "");
+    } catch (error) {
+        throw new Error(error?.message ?? "登录异常，请刷新重试");
+    }
 };
 export default {
     getWxCode,

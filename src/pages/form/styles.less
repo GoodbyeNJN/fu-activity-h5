@@ -2,50 +2,50 @@
 
 .container {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 .mask {
     position: absolute;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.77);
     z-index: 1;
 
     .popup {
         position: absolute;
-        top: calc(184 * @y-scale);
-        left: calc(173 * @x-scale);
-        width: calc(467 * @x-scale);
+        top: calc(184 * @x);
+        left: calc(173 * @x);
+        width: calc(467 * @x);
         z-index: 2;
     }
 
     .close-btn {
         position: absolute;
-        top: calc(823 * @y-scale);
+        top: calc(823 * @x);
         left: 0;
         right: 0;
-        width: calc(59 * @x-scale);
+        width: calc(59 * @x);
         margin: auto;
         z-index: 2;
     }
 }
-s .fireworks {
+.fireworks {
     position: absolute;
-    top: calc(-33 * @y-scale);
-    left: calc(468 * @y-scale);
-    width: calc(246 * @x-scale);
+    top: calc(-33 * @x);
+    left: calc(468 * @x);
+    width: calc(246 * @x);
 }
 
 .title {
     position: absolute;
-    top: calc(180 * @y-scale);
+    top: calc(180 * @x);
     left: 0;
     right: 0;
     margin: auto;
     color: #ffe7af;
-    font-size: calc(50 * @x-scale);
+    font-size: calc(50 * @x);
     text-align: center;
 }
 
@@ -55,17 +55,22 @@ s .fireworks {
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    top: calc(284 * @y-scale);
-    width: 100vw;
-    height: calc(653 * @y-scale);
+    top: calc(284 * @x);
+    width: 100%;
+    height: calc(653 * @x);
 }
 
 .btn {
     position: absolute;
-    top: calc(1098 * @y-scale);
+    top: calc(1098 * @x);
     left: 0;
     right: 0;
-    width: calc(369 * @x-scale);
-    height: calc(119 * @y-scale);
+    width: calc(369 * @x);
+    height: calc(119 * @x);
     margin: auto;
+}
+
+.btn-nav {
+    width: calc(369 * @x);
+    height: calc(119 * @x);
 }

@@ -1,34 +1,50 @@
 @import "../../mixins.less";
 
+.container {
+    display: flex;
+}
+
 .input-container {
     display: flex;
     position: relative;
-    width: calc(635 * @x-scale);
-    height: calc(89 * @y-scale);
+    width: calc(635 * @x);
+    height: calc(89 * @x);
     color: #ffe7af;
-    line-height: calc(38 * @y-scale);
-    font-size: calc(34 * @x-scale);
+    font-size: calc(34 * @x);
     font-weight: 300;
 }
 
 .label {
     display: flex;
     align-items: center;
-    width: calc(127 * @x-scale);
+    width: 20%;
     height: 100%;
-    padding: calc(8 * @y-scale) calc(5 * @x-scale) calc(8 * @y-scale) calc(40 * @x-scale);
-    // text-align: center;
+    padding: calc(8 * @x) calc(5 * @x) calc(8 * @x) calc(40 * @x);
+    line-height: calc(34 * @x);
     background-color: #fa383b;
 }
 
 .input {
-    width: calc(508 * @x-scale);
-    padding-right: calc(40 * @x-scale);
+    width: 80%;
+    padding-right: calc(40 * @x);
     caret-color: #ffe7af;
     text-align: right;
+    font-family: "vivo";
     outline: none;
     border: none;
     background-color: #ad0e10;
+}
+
+input::placeholder {
+    color: lightgray;
+}
+
+.cover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 100%;
 }
 
 @supports (-webkit-mask: none) and (not (cater-color: red)) {
@@ -37,7 +53,7 @@
     }
 
     .input::first-line {
-        color: #ffe7af;
+        // color: #ffe7af;
     }
 }
 
@@ -45,6 +61,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(635 * @x-scale);
-    height: calc(89 * @y-scale);
+    width: 100%;
+    height: 100%;
 }

@@ -2,14 +2,14 @@
 
 .container {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 .gifts,
 .cards {
     position: absolute;
-    width: calc(690 * @x-scale);
+    width: calc(690 * @x);
     left: 0;
     right: 0;
     margin: auto;
@@ -18,12 +18,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: calc(222 * @x-scale);
-        height: calc(56 * @y-scale);
+        width: calc(222 * @x);
+        height: calc(56 * @x);
         color: #c3181b;
-        font-size: calc(46 * @x-scale);
-        border: calc(7 * @x-scale) solid #eea444;
-        border-radius: calc(7 * @x-scale);
+        font-size: calc(46 * @x);
+        border: calc(7 * @x) solid #eea444;
+        border-radius: calc(7 * @x);
         background-color: #f4cf95;
         box-sizing: content-box;
     }
@@ -31,12 +31,16 @@
     &-list {
         display: flex;
         justify-content: space-between;
-        margin-top: calc(30 * @y-scale);
+        margin-top: calc(30 * @x);
+    }
+
+    img {
+        pointer-events: auto;
     }
 }
 
 .gifts {
-    top: calc(183 * @y-scale);
+    top: calc(183 * @x);
 
     &-list {
         flex-direction: column;
@@ -45,27 +49,60 @@
         &-line {
             display: flex;
             justify-content: space-between;
-            margin-bottom: calc(20 * @y-scale);
+            margin-bottom: calc(20 * @x);
 
             > img {
-                width: calc(206 * @x-scale);
-                height: calc(200 * @x-scale);
-            }
-
-            &:last-child > :last-child {
-                visibility: hidden;
+                width: calc(206 * @x);
+                height: calc(200 * @x);
             }
         }
     }
 }
 
 .cards {
-    top: calc(967 * @y-scale);
+    top: calc(967 * @x);
 
     &-list {
         > img {
-            width: calc(135 * @x-scale);
-            height: calc(175 * @x-scale);
+            width: calc(135 * @x);
+            height: calc(175 * @x);
         }
     }
+}
+
+.disable {
+    filter: contrast(0.3);
+}
+
+.v-card-popup {
+    position: absolute;
+    width: @page-w;
+    height: @page-h;
+}
+
+.popup > div {
+    width: calc(750 * @x);
+    transform: translate(-50%, -65%);
+}
+
+.popup-btn {
+    position: absolute;
+    top: calc(940 * @x);
+    left: 50%;
+    width: calc(260 * @x);
+    height: calc(80 * @x);
+    transform: translate(-50%, 0);
+    z-index: 10;
+}
+
+.popup-title {
+    position: absolute;
+    top: calc(130 * @x);
+    left: 50%;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    font-size: calc(40 * @x);
+    transform: translate(-50%, 0);
+    z-index: 10;
 }

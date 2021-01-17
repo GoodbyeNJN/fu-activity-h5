@@ -1,58 +1,84 @@
 import { useState } from "react";
 import { history } from "umi";
-import { Picker } from "antd-mobile";
+import { Picker, Toast } from "antd-mobile";
+import { useTouch } from "@/utils/hooks";
 import styles from "./styles.less";
 
-import { common, fireworks } from "@/assets/imgs";
+import { common, fireworks, btn } from "@/assets/imgs";
+import { areaList } from "@/utils/constant";
 import Button from "@/components/button";
+import Input from "@/components/input";
 
-const data = [
-    { value: 1, label: "湖北" },
-    { value: 2, label: "宜昌" },
-];
+import { setArea } from "@/utils";
 
-export default () => {
+const Choose = () => {
     const [show, setShow] = useState(false);
     const [value, setValue] = useState("");
+
+    const giftBtn = useTouch(styles.giftBtn);
+    const ruleBtn = useTouch(styles.ruleBtn);
+
+    const onClick = (path: string) => {
+        if (value) {
+            setArea(value);
+            history.push(path);
+        } else {
+            Toast.info("请先选择区域再进入活动", 1);
+        }
+    };
 
     return (
         <div className={styles.container}>
             <img src={fireworks.big} className={styles.fireworks} />
             <img src={common.pattern} className={styles.head} />
 
-            <Button className={styles.openBtn} onClick={() => history.push("/box")}>
+            <Input
+                className={styles.input}
+                label="所在区域"
+                placeholder="请选择所在区域"
+                disabled
+                value={value}
+                onChange={() => {}}
+                onClick={() => setShow(true)}
+            />
+
+            <Button className={styles.openBtn} onClick={() => onClick("/box")}>
                 开礼盒(抽奖)
             </Button>
-            <Button className={styles.collectBtn} onClick={() => history.push("/card")}>
+            <Button className={styles.collectBtn} onClick={() => onClick("/card")}>
                 集福卡
             </Button>
 
-            <div className={styles.input}>
-                <div className={styles.inputContainer}>
-                    <div className={styles.label}>所在区域</div>
-                    <input
-                        className={styles.inputBar}
-                        value={value}
-                        onChange={e => setValue(e.target.value)}
-                        onClick={() => setShow(true)}
-                    />
-                    <Picker
-                        visible={show}
-                        data={data}
-                        cols={1}
-                        onChange={e => {
-                            const v = e?.[0];
-                            data.forEach(({ value, label }) => {
-                                value === v && setValue(label);
-                            });
-                        }}
-                        onOk={() => setShow(false)}
-                        onDismiss={() => setShow(false)}
-                    />
+            <img
+                src={btn.gift}
+                className={giftBtn.className}
+                {...giftBtn.handlers}
+                onClick={() => history.push("/my")}
+            />
+            <img
+                src={btn.rule}
+                className={ruleBtn.className}
+                {...ruleBtn.handlers}
+                onClick={() => history.push("/rule")}
+            />
 
-                    <img src={common.inputBorder} className={styles.background} />
-                </div>
-            </div>
+            <Picker
+                className={styles.picker}
+                visible={show}
+                data={areaList}
+                cols={1}
+                onChange={value => {
+                    const v = value?.[0];
+                    areaList.forEach(({ value, label }) => {
+                        value === v && setValue(label);
+                    });
+                }}
+                title="请选择所在区域"
+                onOk={() => setShow(false)}
+                onDismiss={() => setShow(false)}
+            />
         </div>
     );
 };
+
+export default Choose;

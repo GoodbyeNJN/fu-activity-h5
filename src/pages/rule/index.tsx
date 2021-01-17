@@ -1,15 +1,13 @@
 import { history } from "umi";
 import styles from "./styles.less";
 
-import { common, rule } from "@/assets/images";
+import { fireworks, prizeBorder } from "@/assets/imgs";
 import Button from "@/components/button";
 
-const { prize } = rule;
-
-export default () => {
+const Rule = () => {
     return (
         <div className={styles.container}>
-            <img src={common.fireworks} className={styles.fireworks} />
+            <img src={fireworks.big} className={styles.fireworks} />
 
             <div className={styles.content}>
                 <p className={styles.contentTitle}>活动规则</p>
@@ -24,34 +22,34 @@ export default () => {
                         <div className={styles.line}>
                             <div>
                                 <p>特等奖</p>
-                                <img src={prize.tv} />
+                                <img src={prizeBorder.tv} />
                             </div>
                             <div>
                                 <p>特等奖</p>
-                                <img src={prize.coupon} />
+                                <img src={prizeBorder.coupon} />
                             </div>
                             <div>
                                 <p>一等奖</p>
-                                <img src={prize.phone} />
+                                <img src={prizeBorder.phone} />
                             </div>
                             <div>
                                 <p>二等奖</p>
-                                <img src={prize.watch} />
+                                <img src={prizeBorder.watch} />
                             </div>
                             <div>
                                 <p>三等奖</p>
-                                <img src={prize.earphone} />
+                                <img src={prizeBorder.earphone} />
                             </div>
                         </div>
 
                         <div className={styles.line}>
                             <div>
                                 <p>四等奖</p>
-                                <img src={prize.snacks} />
+                                <img src={prizeBorder.snacks} />
                             </div>
                             <div>
                                 <p>五等奖</p>
-                                <img src={prize.redEnvelope} />
+                                <img src={prizeBorder.redEnvelope} />
                             </div>
                             <div />
                             <div />
@@ -64,11 +62,11 @@ export default () => {
                         X60手机+vivo WATCH智能手表+ vivo TWS Neo真无线耳机）
                     </p>
                     <p>
-                        2、集福卡：点击即可翻3张卡牌，分享H5至微信好友或朋友圈，可额外获得2次翻卡机会，每张卡牌对应一份新年权益，集齐“福遇千万礼”五张卡牌，可至线下指定门店兑换福袋礼品一份（数量有限，先到先得）
+                        2、集福卡：点击即可翻3张卡牌，分享H5至微信好友或朋友圈，可额外获得2次翻卡机会，每张卡牌对应一份新年权益，集齐“福遇千万礼”五张卡牌，可至线下指定门店兑换
+                        <span>福袋礼品一份（数量有限，先到先得）</span>
                     </p>
-                    <p>主办单位：</p>
-                    <p>vivo湖北</p>
-                    <p> 其他说明：</p>
+                    <p>主办单位：vivo湖北</p>
+                    <p>其他说明：</p>
                     <p>
                         用户抽中的实物礼品均以邮寄形式兑换，用户需准确填写购机门店地址以预约兑奖，无特殊原因则7日内发货，若遇到春节物流停运等问题，则延后发货，若因门店地址不准确影响发货则取消兑奖资格。
                     </p>
@@ -87,3 +85,5 @@ export default () => {
         </div>
     );
 };
+
+export default Rule;

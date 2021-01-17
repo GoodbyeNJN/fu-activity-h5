@@ -1,63 +1,112 @@
-import { useState } from "react";
-import { history } from "umi";
+import { useEffect, useState } from "react";
+import { history, useRequest } from "umi";
+import { Toast } from "antd-mobile";
 import classnames from "classnames";
 import styles from "./styles.less";
 
 import { common, popup } from "@/assets/imgs";
+import { Card as CardType, cards } from "@/utils/constant";
 import Button from "@/components/button";
-import Card from "@/components/card";
+import Cards from "@/components/card";
 import RedCard from "@/components/red-card";
 import Popup from "@/components/popup";
+import Loading from "@/components/loading";
 
-type Icon = "a" | "b" | "c" | "d" | "e";
-type Word = "fu" | "yu" | "qian" | "wan" | "li";
-type Cards = (Word | undefined)[];
+import api from "@/api";
+import { getOpenedCardList, setOpenedCardList, share, shareLink, getCardList } from "@/utils";
 
-const words: Word[] = ["fu", "yu", "qian", "wan", "li"];
-const icons: Icon[] = ["a", "b", "c", "d", "e"];
+type CardList = CardType[];
 
-export default () => {
-    const [cards, setCards] = useState<Cards>([undefined, undefined, undefined]);
+let count = 0;
+
+const Card = () => {
+    const [cardList, setCardList] = useState<CardList>([]);
+    const [openedList, setOpenedList] = useState<boolean[]>([]);
     const [show, setShow] = useState(false);
 
-    const updateShow = (flag: boolean) => {
-        if (!flag) {
-            const newCards = [...cards, undefined, undefined];
-            setCards(newCards);
-            setShow(false);
+    const sign = useRequest(api.getSignature);
+    const { data, error, loading } = useRequest(api.getCardCollection);
+    const moreCard = useRequest(api.getCardCollectionAfterShare, { manual: true });
+
+    useEffect(() => {
+        const list = getOpenedCardList();
+        setOpenedList(list);
+    }, []);
+
+    useEffect(() => {
+        setOpenedCardList(openedList);
+    }, [openedList]);
+
+    useEffect(() => {
+        if (!data?.card_collection) {
+            return;
         }
-    };
+
+        const list = getCardList(data.card_collection);
+        setCardList(list);
+    }, [data]);
+
+    if (error || moreCard.error || sign.error) {
+        Toast.fail(error?.message ?? moreCard?.error?.message ?? sign?.error?.message);
+    }
+    if (loading) {
+        return <Loading fullScreen />;
+    }
 
     const onClick = () => {
-        if (cards.length < 5) {
+        if (cardList.length < 5) {
             setShow(true);
             return;
         } else {
-            history.push("/form");
+            history.push("/form", { from: "card" });
         }
+    };
+
+    const onOpenedAll = async () => {
+        if (count < 1) {
+            setShow(true);
+            count += 1;
+        }
+
+        const url = new URL(window.location.href);
+        url.search = "";
+
+        await api.getSignature(url.toString());
+        // await share(() => {
+        //     moreCard.run();
+        //     setShow(false);
+        // });
+        await shareLink();
     };
 
     return (
         <div className={styles.container}>
-            <Popup src={popup.share} show={show} setShow={updateShow} />
+            <Popup src={popup.share} show={show} setShow={setShow} />
 
             <img src={common.pattern} className={styles.head} />
 
-            <Card className={styles.bigCard} cards={cards} setCards={setCards} />
+            <Cards
+                className={styles.bigCard}
+                cardList={cardList}
+                setCardList={setCardList}
+                openedList={openedList}
+                setOpenedList={setOpenedList}
+                onOpenedAll={onOpenedAll}
+            />
 
             <div className={styles.smallCardList}>
-                {words.map((word, index) => (
+                {cards.map((word, index) => (
                     <RedCard
                         key={word}
                         className={styles.smallCard}
                         word={word}
-                        number={word === cards[index] ? 1 : 0}
+                        number={openedList[index] ? 1 : 0}
                     />
                 ))}
             </div>
 
             <Button
-                className={classnames(styles.btn, cards.length < 5 && styles.btnDisable)}
+                className={classnames(styles.btn, cardList.length < 5 && styles.btnDisable)}
                 onClick={onClick}
             >
                 立即合成
@@ -65,3 +114,5 @@ export default () => {
         </div>
     );
 };
+
+export default Card;

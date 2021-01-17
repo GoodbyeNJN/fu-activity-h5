@@ -4,6 +4,7 @@ import boxFlash from "./box/flash.png";
 import boxOpen from "./box/open.png";
 import boxSpotlight from "./box/spotlight.png";
 
+import backgroundBtn from "./btn/background.png";
 import closeBtn from "./btn/close.png";
 import giftBtn from "./btn/gift.png";
 import ruleBtn from "./btn/rule.png";
@@ -27,9 +28,12 @@ import bigFireworks from "./fireworks/big.png";
 import smallFireworks from "./fireworks/small.png";
 
 import branchIndex from "./index/branch.png";
+import content from "./index/content.png";
 import patternIndex from "./index/pattern.png";
 import phoneIndex from "./index/phone.png";
+import phonePendant from "./index/phone-pendant.png";
 import redEnvelopeIndex from "./index/red-envelope.png";
+import redEnvelopePendant from "./index/red-envelope-pendant.png";
 import wordIndex from "./index/word.png";
 
 import fu from "./opened-card/fu.png";
@@ -42,7 +46,9 @@ import openedCard from "./opened-card/card.png";
 
 import longPopup from "./popup/long.png";
 import shortPopup from "./popup/short.png";
-import share from "./popup/share.png";
+import sharePopup from "./popup/share.png";
+import redEnvelopePopup from "./popup/red-envelope.png";
+import vCardPopup from "./popup/v-card.png";
 
 import coupon1 from "./prize/coupon-1.png";
 import coupon2 from "./prize/coupon-2.png";
@@ -87,6 +93,7 @@ export const fireworks = {
 };
 
 export const btn = {
+    background: backgroundBtn,
     close: closeBtn,
     gift: giftBtn,
     rule: ruleBtn,
@@ -95,7 +102,9 @@ export const btn = {
 export const popup = {
     long: longPopup,
     short: shortPopup,
-    share,
+    share: sharePopup,
+    redEnvelope: redEnvelopePopup,
+    vCard: vCardPopup,
 };
 
 export const box = {
@@ -166,8 +175,11 @@ export const prizeBorder = {
 
 export const index = {
     branch: branchIndex,
+    content,
     pattern: patternIndex,
     phone: phoneIndex,
+    phonePendant,
     redEnvelope: redEnvelopeIndex,
+    redEnvelopePendant,
     word: wordIndex,
 };
