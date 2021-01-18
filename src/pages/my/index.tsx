@@ -44,8 +44,25 @@ const My = () => {
         }
         if (card_collection) {
             const { wufu, ...rest } = card_collection;
+            if (wufu) {
+                setCardList(rest);
+                return;
+            }
 
-            setCardList(rest);
+            setPrizes(prev => {
+                const newState = [...prev];
+                newState[7] = "bag";
+
+                return newState;
+            });
+
+            setCardList(prev => {
+                const newState = Object.fromEntries(
+                    Object.entries(prev).map(([key]) => [key, 1]),
+                ) as Cards;
+
+                return newState;
+            });
         }
     }, [data]);
 

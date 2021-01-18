@@ -1,4 +1,3 @@
-import { history } from "umi";
 import { extend } from "umi-request";
 import { login, getToken, setToken } from "@/utils/login";
 

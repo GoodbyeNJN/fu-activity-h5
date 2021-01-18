@@ -5,7 +5,7 @@ import classnames from "classnames";
 import styles from "./styles.less";
 
 import { common, popup } from "@/assets/imgs";
-import { Card as CardType, Cards as CardsType, cards } from "@/utils/constant";
+import { Card as CardType, Cards as CardsType, cards, apiCodeHandler } from "@/utils/constant";
 import Button from "@/components/button";
 import Cards from "@/components/card";
 import RedCard from "@/components/red-card";
@@ -59,9 +59,18 @@ const Card = () => {
         }
 
         const { wufu, ...rest } = userPrize.data.card_collection;
-        if (!wufu || !Object.values(rest).every(value => value === 0)) {
+        if (!wufu) {
             setCardList(rest);
+            return;
         }
+
+        setCardList(prev => {
+            const newState = Object.fromEntries(
+                Object.entries(prev).map(([key]) => [key, 1]),
+            ) as CardsType;
+
+            return newState;
+        });
     }, [userPrize.data]);
 
     useEffect(() => {
@@ -69,11 +78,20 @@ const Card = () => {
             return;
         }
 
-        if (Object.values(cardList).every(value => value === 0)) {
-            const { wufu, ...rest } = baseCard.data.card_collection;
+        const { wufu, ...rest } = baseCard.data.card_collection;
+        if (!wufu) {
             setCardList(rest);
+            return;
         }
-    }, [baseCard.data, cardList]);
+
+        setCardList(prev => {
+            const newState = Object.fromEntries(
+                Object.entries(prev).map(([key]) => [key, 1]),
+            ) as CardsType;
+
+            return newState;
+        });
+    }, [baseCard.data]);
 
     useEffect(() => {
         if (!moreCard.data) {
@@ -81,7 +99,18 @@ const Card = () => {
         }
 
         const { wufu, ...rest } = moreCard.data.card_collection;
-        setCardList(rest);
+        if (!wufu) {
+            setCardList(rest);
+            return;
+        }
+
+        setCardList(prev => {
+            const newState = Object.fromEntries(
+                Object.entries(prev).map(([key]) => [key, 1]),
+            ) as CardsType;
+
+            return newState;
+        });
     }, [moreCard.data]);
 
     useEffect(() => {

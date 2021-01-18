@@ -1,3 +1,5 @@
+import { history } from "umi";
+
 export const appid = "wxdf2b45713a6dde6d";
 
 export const globalData: any = {};
@@ -121,6 +123,14 @@ export const areaList = [
     { value: 13, label: "恩施" },
 ];
 
+export const apiCodeHandler = {
+    30002: () => history.push("/my"),
+
+    30004: () => history.push("my"),
+
+    30006: () => history.push("my"),
+};
+
 export default {
     globalData,
     appid,
@@ -130,4 +140,5 @@ export default {
     prizeInfoMap,
     cardInfoMap,
     areaList,
+    apiCodeHandler,
 };

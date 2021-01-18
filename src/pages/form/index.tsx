@@ -76,7 +76,7 @@ const Form = () => {
     }, [location.data, shopList.data]);
 
     useEffect(() => {
-        if (bag.data === null || prize.data === null) {
+        if (bag.data?.card_collection.wufu || prize.data === null) {
             Toast.success(
                 <div>
                     信息提交成功！
@@ -92,7 +92,6 @@ const Form = () => {
     }, [prize.data, bag.data]);
 
     if (prize.error || bag.error || shopList.error) {
-        console.log("123:");
         Toast.fail(prize.error?.message ?? bag.error?.message ?? shopList.error?.message);
     }
 
