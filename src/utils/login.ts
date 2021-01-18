@@ -1,8 +1,7 @@
-import { history } from "umi";
+import { globalData, appid } from "@/utils/constant";
 
 import api from "@/api";
 
-const appid = "wxdf2b45713a6dde6d";
 const tokenKey = "vivo-2021";
 
 export const getWxCode = () => {
@@ -21,11 +20,14 @@ export const getWxCode = () => {
 };
 
 export const getToken = () => {
-    const token = window.localStorage.getItem(tokenKey) ?? "";
+    const token = globalData.token ?? window.localStorage.getItem(tokenKey);
+    console.warn("get token:", token);
     return token;
 };
 
 export const setToken = (token: string) => {
+    console.log("set token:", token);
+    globalData.token = token;
     window.localStorage.setItem(tokenKey, token);
 };
 
@@ -54,11 +56,12 @@ export const login = async () => {
 
     try {
         const res = await api.login(code);
-        if (res.errcode) {
+        if (res?.errcode) {
             throw res;
         }
 
-        setToken(res.data.token ?? "");
+        console.log("res.data.token:", res?.data.token);
+        setToken(res?.data.token ?? "");
     } catch (error) {
         throw new Error(error?.message ?? "登录异常，请刷新重试");
     }

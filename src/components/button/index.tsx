@@ -14,13 +14,13 @@ interface Props extends Button {
 }
 
 const Button: React.FC<Props> = props => {
-    const { children, className, style, ...restProps } = props;
+    const { children, className, style, ...rest } = props;
 
     const button = useTouch(styles.button);
 
     return (
         <div className={className} style={style}>
-            <button className={button.className} {...button.handlers} {...restProps}>
+            <button className={button.className} {...button.handlers} {...rest}>
                 <div className={styles.content}>{children}</div>
 
                 <img src={btn.background} className={styles.border} />

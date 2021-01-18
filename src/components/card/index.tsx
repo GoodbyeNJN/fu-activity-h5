@@ -1,46 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import classnames from "classnames";
 import styles from "./styles.less";
 
 import "animate.css";
 
 import { card } from "@/assets/imgs";
-import { Card as CardType, cards, icons, cardInfoMap } from "@/utils/constant";
-
-type CardList = CardType[];
+import { Card as CardType, Cards, icons, cardInfoMap } from "@/utils/constant";
 
 export interface Props {
     className?: string;
-    cardList: CardList;
-    setCardList: (cardList: CardList) => void;
-    openedList: boolean[];
-    setOpenedList: (openedList: boolean[]) => void;
-    onOpenedAll: () => void;
+    cardList: Cards;
+    setCardList: (cardList: Cards) => void;
+    openedList: Cards;
+    setOpenedList: (openedList: Cards) => void;
 }
 
 const { covered, opened } = card;
 
 const Card: React.FC<Props> = props => {
-    const { className, cardList, setCardList, openedList, setOpenedList, onOpenedAll } = props;
+    const { className, cardList, openedList, setOpenedList } = props;
 
-    const [index, setIndex] = useState<number>(0);
+    const [key, setKey] = useState<CardType>("fu");
+
+    const [ownedCardList, ownedCardNumber] = useMemo<[Cards, number]>(() => {
+        const ownedList = Object.entries(cardList).filter(([key, value]) => value !== 0);
+        const ownedCardList = Object.fromEntries(ownedList) as Cards;
+        const ownedCardNumber = ownedList.length;
+
+        return [ownedCardList, ownedCardNumber];
+    }, [cardList]);
 
     useEffect(() => {
-        !openedList.includes(false) && onOpenedAll();
-    }, [onOpenedAll, openedList]);
+        const keys = Object.keys(ownedCardList) as CardType[];
+        setKey(keys[0]);
+    }, [ownedCardList]);
 
     const openCard = () => {
-        const newState = [...openedList];
-        newState[index] = true;
-        setOpenedList(newState);
+        const newList = { ...openedList };
+        newList[key] += 1;
+        setOpenedList(newList);
     };
 
     const onToggle = (flag: 1 | -1) => {
+        const keys = Object.keys(ownedCardList);
+        const index = keys.indexOf(key);
+        let newKey = "";
+
         if (flag < 0) {
-            index === 0 ? setIndex(cardList.length - 1) : setIndex(prev => prev - 1);
+            if (index === 0) {
+                newKey = keys[keys.length - 1];
+            } else {
+                newKey = keys[index - 1];
+            }
         } else {
-            index === cardList.length - 1 ? setIndex(0) : setIndex(prev => prev + 1);
+            if (index === keys.length - 1) {
+                newKey = keys[0];
+            } else {
+                newKey = keys[index + 1];
+            }
         }
+
+        setKey(newKey as CardType);
     };
 
     return (
@@ -50,16 +70,16 @@ const Card: React.FC<Props> = props => {
                 className={classnames(styles.arrow, styles.left)}
                 onClick={() => onToggle(-1)}
             />
-            {openedList[index] ? (
+            {openedList[key] ? (
                 <img
-                    src={opened[cardList[index]]}
+                    src={opened[key]}
                     className={styles.opened}
                     onClick={() => {
-                        window.location.href = cardInfoMap[cardList[index]].link;
+                        window.location.href = cardInfoMap[key].link;
                     }}
                 />
             ) : (
-                <img src={covered[icons[index]]} className={styles.covered} onClick={openCard} />
+                <img src={covered[icons[key]]} className={styles.covered} onClick={openCard} />
             )}
             <img
                 src={covered.arrow}
@@ -69,7 +89,7 @@ const Card: React.FC<Props> = props => {
 
             <img src={card.border} className={styles.border} />
 
-            <div className={styles.text}>哇！恭喜获得{cardList.length}张福卡！</div>
+            <div className={styles.text}>哇！恭喜获得{ownedCardNumber}张福卡！</div>
         </div>
     );
 };

@@ -1,8 +1,14 @@
+export const appid = "wxdf2b45713a6dde6d";
+
+export const globalData: any = {};
+
 export type Icon = "a" | "b" | "c" | "d" | "e";
-export const icons: Icon[] = ["a", "b", "c", "d", "e"];
+export type Icons = Record<Card, Icon>;
+export const icons: Icons = { fu: "a", yu: "b", qian: "c", wan: "d", li: "e" };
 
 export type Card = "fu" | "yu" | "qian" | "wan" | "li";
-export const cards: Card[] = ["fu", "yu", "qian", "wan", "li"];
+export type Cards = Record<Card, number>;
+export const cards: Cards = { fu: 0, yu: 0, qian: 0, wan: 0, li: 0 };
 
 export type AllPrize =
     | "coupon"
@@ -116,6 +122,8 @@ export const areaList = [
 ];
 
 export default {
+    globalData,
+    appid,
     cards,
     allApiPrizeMap,
     apiPrizeMapWithoutKoi,

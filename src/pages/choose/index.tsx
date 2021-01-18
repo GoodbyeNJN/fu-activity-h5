@@ -43,7 +43,7 @@ const Choose = () => {
             />
 
             <Button className={styles.openBtn} onClick={() => onClick("/box")}>
-                开礼盒(抽奖)
+                开福盒(抽奖)
             </Button>
             <Button className={styles.collectBtn} onClick={() => onClick("/card")}>
                 集福卡

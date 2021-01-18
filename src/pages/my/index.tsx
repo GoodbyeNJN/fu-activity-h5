@@ -5,13 +5,12 @@ import classnames from "classnames";
 import styles from "./styles.less";
 
 import { card, prizeBorder, popup } from "@/assets/imgs";
-import { AllPrize, Card } from "@/utils/constant";
+import { AllPrize, Card, Cards, cards } from "@/utils/constant";
 import Loading from "@/components/loading";
 import Button from "@/components/button";
 import Popup from "@/components/popup";
 
 import api from "@/api";
-import { getCardList } from "@/utils";
 
 type Prize = AllPrize | "bag";
 
@@ -19,7 +18,7 @@ const { opened } = card;
 
 const My = () => {
     const [prizes, setPrizes] = useState<Prize[]>([]);
-    const [cards, setCards] = useState<Card[]>([]);
+    const [cardList, setCardList] = useState<Cards>(cards);
     const [showVCard, setShowVCard] = useState(false);
 
     const { data, error, loading } = useRequest(api.getUserPrize);
@@ -38,9 +37,10 @@ const My = () => {
                 return newState;
             });
         }
-        if (!card_collection) {
-            const list = getCardList(card_collection);
-            setCards(list);
+        if (card_collection) {
+            const { wufu, ...rest } = card_collection;
+
+            setCardList(rest);
         }
     }, [data]);
 
@@ -79,14 +79,17 @@ const My = () => {
                         return;
                     }
 
-                    history.push("/form");
+                    history.push({
+                        pathname: "/form",
+                        query: { from: value === "bag" ? "bag" : "prize" },
+                    });
                 }}
             />
         );
     };
 
     const CardElement = ({ value }: { value: Card }) => {
-        const isDisable = !cards.includes(value);
+        const isDisable = !cardList[value];
 
         return (
             <img
@@ -103,9 +106,18 @@ const My = () => {
         <div className={styles.container}>
             {showVCard && (
                 <div className={styles.vCardPopup}>
-                    <div className={styles.popupTitle}>2021年2月11日24点开奖</div>
+                    <div className={styles.popupTitle}>2021年2月11日12点开奖</div>
                     <Popup src={popup.vCard} className={styles.popup} show={showVCard} noBtn />
-                    <Button className={styles.popupBtn} onClick={() => setShowVCard(false)}>
+                    <Button
+                        className={styles.popupBtn}
+                        onClick={() => {
+                            setShowVCard(false);
+                            history.push({
+                                pathname: "/form",
+                                query: { from: "prize" },
+                            });
+                        }}
+                    >
                         确认
                     </Button>
                 </div>

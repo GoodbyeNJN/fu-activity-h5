@@ -1,0 +1,49 @@
+@import "../../mixins.less";
+
+.modal {
+    height: 100%;
+    font-family: "";
+}
+
+.list {
+    position: relative;
+
+    &-item {
+        display: flex;
+        flex-direction: column;
+
+        > div + div {
+            margin-top: calc(6 * @x);
+        }
+    }
+
+    .name {
+        font-size: calc(30 * @x);
+        font-weight: bold;
+    }
+
+    .address {
+        color: #888;
+        font-size: calc(24 * @x);
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        color: #8b192d;
+        font-size: calc(24 * @x);
+    }
+
+    .divide {
+        margin: 0 calc(8 * @x);
+    }
+
+    .icon {
+        width: calc(24 * @x);
+        height: calc(24 * @x);
+        margin-right: calc(6 * @x);
+        transform: translate(0, 6%);
+        filter: invert(11%) sepia(71%) saturate(3666%) hue-rotate(336deg) brightness(96%)
+            contrast(92%);
+    }
+}

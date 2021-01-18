@@ -10,7 +10,7 @@ interface Props extends Input {
 }
 
 const Input: React.FC<Props> = props => {
-    const { className, onClick, disabled, label, ...restProps } = props;
+    const { className, onClick, disabled, label, ...rest } = props;
 
     return (
         <div className={className}>
@@ -19,11 +19,11 @@ const Input: React.FC<Props> = props => {
 
                 {disabled ? (
                     <>
-                        <input className={styles.input} {...restProps} />
+                        <input className={styles.input} {...rest} />
                         <span className={styles.cover} onClick={onClick} />
                     </>
                 ) : (
-                    <input className={styles.input} {...restProps} />
+                    <input className={styles.input} {...rest} />
                 )}
 
                 <img src={common.inputBorder} className={styles.background} />

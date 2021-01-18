@@ -37,6 +37,7 @@ export interface Shop {
     address: string;
     longitude: number;
     latitude: number;
+    contact_phone: string;
 }
 
 export interface UserPrize {
@@ -81,23 +82,35 @@ export const login = (code: string) => {
     return request.post<Result<UserInfo>>("/wechat/login", { data: { code } });
 };
 
-export const getSignature = async (url: string, debug?: 0 | 1) => {
+export const getSignature = async (debug?: 0 | 1) => {
     try {
+        const url = new URL(window.location.href);
+        url.hash = "";
+
         const res = await request.post<Result<Signature>>("/wechat/jssdk/signature", {
-            data: { url, debug: debug ?? 0 },
+            data: { url: url.toString(), debug: debug ?? 0 },
         });
         if (res?.errcode) {
             throw res;
         }
 
-        return;
+        return res;
     } catch (error) {
         throw new Error(error?.message ?? "获取微信签名异常，请刷新重试");
     }
 };
 
-export const getShopList = () => {
-    return request.get<Result<Shop[]>>("/2021spring/shop/list");
+export const getShopList = async () => {
+    try {
+        const res = await request.get<Result<Shop[]>>("/2021spring/shop/list");
+        if (res?.errcode) {
+            throw res;
+        }
+
+        return res;
+    } catch (error) {
+        throw new Error(error?.message ?? "获取门店异常，请刷新重试");
+    }
 };
 
 export const getUserPrize = async () => {
@@ -108,7 +121,7 @@ export const getUserPrize = async () => {
         }
 
         if (res?.data.lottery) {
-            const prizeId = res.data.lottery.prize.prize_id as AllApiPrizeId;
+            const prizeId = res?.data.lottery.prize.prize_id as AllApiPrizeId;
             res.data.lottery.prize.prize_id = allApiPrizeMap[prizeId];
         }
 
@@ -128,7 +141,7 @@ export const getLotteryResult = async (area: string) => {
         }
 
         if (res?.data) {
-            const prizeId = res.data.prize.prize_id as AllApiPrizeId;
+            const prizeId = res?.data.prize.prize_id as AllApiPrizeId;
             res.data.prize.prize_id = allApiPrizeMap[prizeId];
         }
 
@@ -164,8 +177,17 @@ export const acceptVCard = async () => {
     }
 };
 
-export const submitWinnerInfo = (data: WinnerInfo) => {
-    return request.post<Result<null>>("/2021spring/lottery/info/submit", { data });
+export const submitWinnerInfo = async (data: WinnerInfo) => {
+    try {
+        const res = await request.post<Result<null>>("/2021spring/lottery/info/submit", { data });
+        if (res?.errcode) {
+            throw res;
+        }
+
+        return res;
+    } catch (error) {
+        throw new Error(error?.message ?? "提交信息异常，请刷新重试");
+    }
 };
 
 export const getCardCollection = async () => {
@@ -194,8 +216,19 @@ export const getCardCollectionAfterShare = async () => {
     }
 };
 
-export const syntheticCard = (data: RedeemerInfo) => {
-    return request.post<Result<CardCollection>>("/2021spring/fucard/synthesize", { data });
+export const syntheticCard = async (data: RedeemerInfo) => {
+    try {
+        const res = await request.post<Result<CardCollection>>("/2021spring/fucard/synthesize", {
+            data,
+        });
+        if (res?.errcode) {
+            throw res;
+        }
+
+        return res;
+    } catch (error) {
+        throw new Error(error?.message ?? "提交信息异常，请刷新重试");
+    }
 };
 
 export default {

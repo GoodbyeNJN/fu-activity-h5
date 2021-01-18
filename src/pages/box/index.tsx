@@ -51,10 +51,10 @@ const Box = () => {
 
     const acceptRedEnvelope = async () => {
         try {
-            await api.acceptRedPack();
+            // await api.acceptRedPack();
             history.push({
                 pathname: "/form",
-                query: { from: "box" },
+                query: { from: "prize" },
             });
         } catch (error) {
             Toast.fail(error.message);
@@ -63,11 +63,11 @@ const Box = () => {
 
     const acceptVCard = async () => {
         try {
-            await api.acceptVCard();
+            // await api.acceptVCard();
             setShowVCard(false);
             history.push({
                 pathname: "/form",
-                query: { from: "box" },
+                query: { from: "prize" },
             });
         } catch (error) {
             Toast.fail(error.message);
@@ -77,7 +77,7 @@ const Box = () => {
     const jumpToForm = () => {
         history.push({
             pathname: "/form",
-            query: { from: "box" },
+            query: { from: "prize" },
         });
     };
 
@@ -87,7 +87,7 @@ const Box = () => {
                 <img src={fireworks.big} className={styles.fireworks} />
                 <img src={common.pattern} className={styles.head} />
 
-                {loading && <Loading />}
+                {loading && <Loading className={styles.loading} />}
                 <Boxes className={styles.box} />
 
                 <Button className={styles.bigBtn} onClick={startLottery}>
@@ -102,7 +102,7 @@ const Box = () => {
             <Popup src={popup.redEnvelope} show={isPoped} setShow={setIsPoped} />
             {showVCard && (
                 <div className={styles.vCardPopup}>
-                    <div className={styles.popupTitle}>2021年2月11日24点开奖</div>
+                    <div className={styles.popupTitle}>2021年2月11日12点开奖</div>
                     <Popup src={popup.vCard} className={styles.popup} show={showVCard} noBtn />
                     <Button className={styles.popupBtn} onClick={acceptVCard}>
                         收下V卡

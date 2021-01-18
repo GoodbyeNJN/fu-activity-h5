@@ -14,6 +14,9 @@ import flash from "./common/flash.png";
 import inputBorder from "./common/input-border.png";
 import logo from "./common/logo.png";
 import pattern from "./common/pattern.png";
+import navIcon from "./common/nav.png";
+import phoneIcon from "./common/phone.png";
+import share from "./common/share.jpg";
 
 import a from "./covered-card/a.png";
 import b from "./covered-card/b.png";
@@ -85,6 +88,9 @@ export const common = {
     inputBorder,
     logo,
     pattern,
+    navIcon,
+    phoneIcon,
+    share,
 };
 
 export const fireworks = {

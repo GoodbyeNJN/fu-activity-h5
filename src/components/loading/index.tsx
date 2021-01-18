@@ -15,7 +15,9 @@ const Loading: React.FC<Props> = props => {
             <div className={styles.loader}>Loading...</div>
         </div>
     ) : (
-        <div className={classnames(styles.loader, className)}>Loading...</div>
+        <div className={className}>
+            <div className={styles.loader}>Loading...</div>
+        </div>
     );
 };
 

@@ -10,6 +10,59 @@
     <body>
         <div id="root"></div>
 
+        <!-- <embed src="./1.mp3" width="0" height="0" loop="true" autostart="true" /> -->
         <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+        <script>
+            //添加一个音乐标签
+            const el_audio = new Audio();
+            window.el_audio = el_audio;
+            //把音乐源文件加入到标签上
+            el_audio.setAttribute("src", "./1.mp3");
+            //开启循环播放
+            el_audio.loop = true;
+            // //设置一个音乐图标
+            // const el_play = document.createElement("img");
+            // el_play.classList.add("music");
+            // el_play.setAttribute("src", require("./images/music.png"));
+            // //监听触摸事件并播放音乐
+            // el_play.addEventListener("touchstart", play);
+            // document.body.appendChild(el_play);
+
+            function play(e) {
+                //去掉冒泡
+                if (!!e) {
+                    e.stopPropagation && e.stopPropagation();
+                    e.preventDefault && e.preventDefault();
+                }
+                //如果开始播放，先停止document监听触摸事件，避免重复触发
+                document.removeEventListener("touchstart", play);
+                //如果音乐在播放，则暂停（音乐图标样式也去掉play），否则就播放。图标样式加上play
+                if (!el_audio.paused) {
+                    el_audio.pause();
+                    // el_play.classList.remove("play");
+                } else {
+                    el_audio.play();
+                    // el_play.classList.add("play");
+                }
+            }
+            try {
+                //微信环境下就自动播放
+                document.addEventListener("WeixinJSBridgeReady", () => {
+                    WeixinJSBridge.invoke("getNetworkType", {}, play);
+                });
+            } catch (e) {
+                console.warn("非微信环境");
+            }
+            var isAppInside =
+                /micromessenger/i.test(navigator.userAgent.toLowerCase()) ||
+                /yixin/i.test(navigator.userAgent.toLowerCase());
+            if (!isAppInside) {
+                //给非微信易信浏览器
+                play();
+                if (el_audio.paused) {
+                    document.addEventListener("touchstart", play);
+                }
+            }
+        </script>
     </body>
 </html>
