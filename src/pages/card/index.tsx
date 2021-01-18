@@ -14,12 +14,14 @@ import Loading from "@/components/loading";
 
 import api from "@/api";
 import { getOpenedCardList, setOpenedCardList, share, wxInit } from "@/utils";
+import { login } from "@/utils/login";
 
 let count = 0;
 
 const Card = () => {
     useEffect(() => {
         wxInit();
+        login();
     }, []);
 
     const [cardList, setCardList] = useState<CardsType>(cards);

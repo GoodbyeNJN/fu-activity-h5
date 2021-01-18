@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { history, useRequest } from "umi";
 import { Toast } from "antd-mobile";
 import classnames from "classnames";
@@ -12,9 +12,14 @@ import Popup from "@/components/popup";
 import Loading from "@/components/loading";
 
 import api from "@/api";
+import { login } from "@/utils/login";
 import { getArea } from "@/utils";
 
 const Box = () => {
+    useEffect(() => {
+        login();
+    }, []);
+
     const [isPoped, setIsPoped] = useState(false);
     const [showVCard, setShowVCard] = useState(false);
 

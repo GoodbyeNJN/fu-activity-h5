@@ -1,4 +1,4 @@
-import { globalData, appid } from "@/utils/constant";
+import { appid } from "@/utils/constant";
 
 import api from "@/api";
 
@@ -20,14 +20,13 @@ export const getWxCode = () => {
 };
 
 export const getToken = () => {
-    const token = globalData.token ?? window.localStorage.getItem(tokenKey);
+    const token = window.localStorage.getItem(tokenKey) ?? "";
     console.warn("get token:", token);
     return token;
 };
 
 export const setToken = (token: string) => {
     console.log("set token:", token);
-    globalData.token = token;
     window.localStorage.setItem(tokenKey, token);
 };
 

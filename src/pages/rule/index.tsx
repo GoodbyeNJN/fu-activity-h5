@@ -1,10 +1,17 @@
+import { useEffect } from "react";
 import { history } from "umi";
 import styles from "./styles.less";
 
 import { fireworks, prizeBorder } from "@/assets/imgs";
 import Button from "@/components/button";
 
+import { login } from "@/utils/login";
+
 const Rule = () => {
+    useEffect(() => {
+        login();
+    }, []);
+
     return (
         <div className={styles.container}>
             <img src={fireworks.big} className={styles.fireworks} />

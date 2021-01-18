@@ -11,6 +11,7 @@ import ShopModal from "@/components/shop-modal";
 
 import api, { RedeemerInfo, WinnerInfo, Shop } from "@/api";
 import utils from "@/utils";
+import { login } from "@/utils/login";
 
 interface ExtendsShop extends Shop {
     distance: number;
@@ -19,6 +20,7 @@ interface ExtendsShop extends Shop {
 const Form = () => {
     useEffect(() => {
         utils.wxInit();
+        login();
     }, []);
 
     const [show, setShow] = useState(false);

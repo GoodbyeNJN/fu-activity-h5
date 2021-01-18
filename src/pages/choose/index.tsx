@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { history } from "umi";
 import { Picker, Toast } from "antd-mobile";
 import { useTouch } from "@/utils/hooks";
@@ -10,8 +10,13 @@ import Button from "@/components/button";
 import Input from "@/components/input";
 
 import { setArea } from "@/utils";
+import { login } from "@/utils/login";
 
 const Choose = () => {
+    useEffect(() => {
+        login();
+    }, []);
+
     const [show, setShow] = useState(false);
     const [value, setValue] = useState("");
 

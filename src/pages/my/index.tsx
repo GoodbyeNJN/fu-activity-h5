@@ -11,12 +11,17 @@ import Button from "@/components/button";
 import Popup from "@/components/popup";
 
 import api from "@/api";
+import { login } from "@/utils/login";
 
 type Prize = AllPrize | "bag";
 
 const { opened } = card;
 
 const My = () => {
+    useEffect(() => {
+        login();
+    }, []);
+
     const [prizes, setPrizes] = useState<Prize[]>([]);
     const [cardList, setCardList] = useState<Cards>(cards);
     const [showVCard, setShowVCard] = useState(false);

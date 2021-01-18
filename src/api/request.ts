@@ -25,8 +25,7 @@ export const request = extend({
             console.log("error.response:", error.response);
 
             if (error.response.status === 401) {
-                console.log("error.response.status:", error.response.status);
-                // setToken("");
+                setToken("");
                 await login();
                 // history.push("/");
                 return;
@@ -57,3 +56,11 @@ export const request = extend({
 
 //     return response;
 // });
+
+request.interceptors.request.use((url, options) => {
+    options.headers = { ...options.headers, Token: getToken() };
+
+    console.log("options.headers:", options.headers);
+
+    return { url, options };
+});
