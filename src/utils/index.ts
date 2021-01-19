@@ -208,21 +208,25 @@ export const navigateToLocation = async (coords: Coords, name: string, address: 
     });
 };
 
-export const getDistance = (coords1: Coords, coords2: Coords) => {
-    const longitudeDifference = coords1.longitude - coords2.longitude;
-    const latitudeDifference = coords2.latitude - coords2.latitude;
+const getRad = (deg: string | number) => {
+    const degNumber = typeof deg === "string" ? parseFloat(deg) : deg;
+    return (degNumber * Math.PI) / 180;
+};
 
-    const distance =
-        Math.asin(
-            Math.sqrt(
-                Math.sin(longitudeDifference / 2) ** 2 +
-                    Math.cos(coords1.latitude) *
-                        Math.cos(coords2.latitude) *
-                        Math.sin(latitudeDifference / 2) ** 2,
-            ),
-        ) *
-        6378 *
-        2;
+export const getDistance = (coords1: Coords, coords2: Coords) => {
+    const lon1 = getRad(coords1.longitude);
+    const lat1 = getRad(coords1.latitude);
+
+    const lon2 = getRad(coords2.longitude);
+    const lat2 = getRad(coords2.latitude);
+
+    const r = 6371;
+    const cos = Math.cos;
+    const sin = Math.sin;
+    const acos = Math.acos;
+
+    const distance = r * acos(cos(lat1) * cos(lat2) * cos(lon1 - lon2) + sin(lat1) * sin(lat2));
+
     return distance;
 };
 

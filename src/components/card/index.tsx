@@ -71,15 +71,21 @@ const Card: React.FC<Props> = props => {
                 onClick={() => onToggle(-1)}
             />
             {openedList[key] ? (
-                <img
-                    src={opened[key]}
-                    className={styles.opened}
-                    onClick={() => {
-                        window.location.href = cardInfoMap[key].link;
-                    }}
-                />
+                <div className={styles.box}>
+                    <p className={styles.boxText}>点击领取</p>
+                    <img
+                        src={opened[key]}
+                        className={styles.opened}
+                        onClick={() => {
+                            window.location.href = cardInfoMap[key].link;
+                        }}
+                    />
+                </div>
             ) : (
-                <img src={covered[icons[key]]} className={styles.covered} onClick={openCard} />
+                <div className={styles.box}>
+                    <p className={styles.boxText}>点击翻开</p>
+                    <img src={covered[icons[key]]} className={styles.covered} onClick={openCard} />
+                </div>
             )}
             <img
                 src={covered.arrow}

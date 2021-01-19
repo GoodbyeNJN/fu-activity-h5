@@ -35,6 +35,8 @@ const Index = () => {
     return (
         <div className={styles.container}>
             <img src={index.content} className={styles.content} />
+            <img src={index.phonePendant} className={styles.phone} />
+            <img src={index.redEnvelopePendant} className={styles.redEnvelope} />
 
             <Button className={styles.openBtn} onClick={() => history.push("/choose")}>
                 福遇开启

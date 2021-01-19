@@ -53,3 +53,18 @@
     font-size: calc(34 * @x);
     transform: translate(-50%, 10%);
 }
+
+.box {
+    position: relative;
+}
+.box-text {
+    pointer-events: none;
+    position: absolute;
+    top: calc(80 * @x);
+    // top:calc(350 * @x);
+    left: 50%;
+    transform: translatex(-50%);
+    font-size: calc(48 * @x);
+    z-index: 2;
+    color: #b42e26;
+}

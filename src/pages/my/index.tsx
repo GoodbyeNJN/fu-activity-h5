@@ -87,11 +87,19 @@ const My = () => {
 
                     if (data?.lottery?.status) {
                         Toast.success(
-                            <div>
-                                您已兑换该奖品！
-                                <br />
-                                奖品会根据您填写的信息寄出，详情参考活动规则
-                            </div>,
+                            value === "redEnvelope" ? (
+                                <div>
+                                    您已兑换该奖品！
+                                    <br />
+                                    奖品会根据您填写的信息寄出，详情参考活动规则
+                                </div>
+                            ) : (
+                                <div>
+                                    红包已领取！
+                                    <br />
+                                    将在24小时内透过vivo湖北服务号发放，请客官稍安勿躁
+                                </div>
+                            ),
                         );
                         return;
                     }
