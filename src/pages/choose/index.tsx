@@ -25,7 +25,10 @@ const Choose = () => {
 
     const onClick = (path: string) => {
         if (value) {
-            setArea(value);
+            areaList.forEach(({ value: v, label }) => {
+                value === label && setArea(v);
+            });
+
             history.push(path);
         } else {
             Toast.info("请先选择区域再进入活动", 1);

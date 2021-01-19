@@ -108,19 +108,19 @@ export const cardInfoMap = {
 };
 
 export const areaList = [
-    { value: 1, label: "宜昌" },
-    { value: 2, label: "孝感" },
-    { value: 3, label: "襄阳" },
-    { value: 4, label: "咸宁" },
-    { value: 5, label: "武汉" },
-    { value: 6, label: "随州广水" },
-    { value: 7, label: "十堰" },
-    { value: 8, label: "荆州" },
-    { value: 9, label: "荆门" },
-    { value: 10, label: "江汉(天门、潜江、仙桃)" },
-    { value: 11, label: "黄石鄂州" },
-    { value: 12, label: "黄冈" },
-    { value: 13, label: "恩施" },
+    { value: "宜昌", label: "宜昌" },
+    { value: "孝感", label: "孝感" },
+    { value: "襄阳", label: "襄阳" },
+    { value: "咸宁", label: "咸宁" },
+    { value: "武汉", label: "武汉" },
+    { value: "随州广水", label: "随州广水" },
+    { value: "十堰", label: "十堰" },
+    { value: "荆州", label: "荆州" },
+    { value: "荆门", label: "荆门" },
+    { value: "江汉（天门、潜江、仙桃）", label: "江汉(天门、潜江、仙桃)" },
+    { value: "黄石鄂州", label: "黄石鄂州" },
+    { value: "黄冈", label: "黄冈" },
+    { value: "恩施", label: "恩施" },
 ];
 
 export const apiCodeHandler = {

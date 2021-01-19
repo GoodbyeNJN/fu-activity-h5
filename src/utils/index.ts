@@ -26,12 +26,12 @@ export const isSafari = () => {
 };
 
 export const getArea = () => {
-    const area = window.localStorage.getItem(areaKey) ?? "";
+    const area = window.sessionStorage.getItem(areaKey) ?? "";
     return area;
 };
 
 export const setArea = (area: string) => {
-    window.localStorage.setItem(areaKey, area);
+    window.sessionStorage.setItem(areaKey, area);
 };
 
 export const getOpenedCardList = () => {
