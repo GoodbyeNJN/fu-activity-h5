@@ -45,7 +45,13 @@ const My = () => {
         if (card_collection) {
             const { wufu, ...rest } = card_collection;
             if (wufu) {
-                setCardList(rest);
+                setCardList(prev => {
+                    const newState = Object.fromEntries(
+                        Object.entries(prev).map(([key]) => [key, 1]),
+                    ) as Cards;
+
+                    return newState;
+                });
                 return;
             }
 
@@ -85,27 +91,27 @@ const My = () => {
                         return;
                     }
 
+                    if (value === "koi") {
+                        setShowVCard(true);
+                        return;
+                    }
+
                     if (data?.lottery?.status) {
                         Toast.success(
                             value === "redEnvelope" ? (
-                                <div>
-                                    您已兑换该奖品！
-                                    <br />
-                                    奖品会根据您填写的信息寄出，详情参考活动规则
-                                </div>
-                            ) : (
                                 <div>
                                     红包已领取！
                                     <br />
                                     将在24小时内透过vivo湖北服务号发放，请客官稍安勿躁
                                 </div>
+                            ) : (
+                                <div>
+                                    您已兑换该奖品！
+                                    <br />
+                                    奖品会根据您填写的信息寄出，详情参考活动规则
+                                </div>
                             ),
                         );
-                        return;
-                    }
-
-                    if (value === "koi") {
-                        setShowVCard(true);
                         return;
                     }
 
