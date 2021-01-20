@@ -8,6 +8,8 @@ import backgroundBtn from "./btn/background.png";
 import closeBtn from "./btn/close.png";
 import giftBtn from "./btn/gift.png";
 import ruleBtn from "./btn/rule.png";
+import confirmBtn from "./btn/confirm.png";
+import returnBtn from "./btn/return.png";
 
 import background from "./common/background.png";
 import flash from "./common/flash.png";
@@ -103,6 +105,8 @@ export const btn = {
     close: closeBtn,
     gift: giftBtn,
     rule: ruleBtn,
+    confirm: confirmBtn,
+    return: returnBtn,
 };
 
 export const popup = {
