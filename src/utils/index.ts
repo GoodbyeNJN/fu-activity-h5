@@ -47,7 +47,7 @@ export const setOpenedCardList = (list: Cards) => {
 export const wxInit = async (apiList?: string[]) => {
     try {
         const res = await api.getSignature();
-        if (res?.errcode) {
+        if (res?.errcode || !res?.data) {
             throw res;
         }
 
