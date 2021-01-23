@@ -55,6 +55,7 @@ export interface LotteryPrize {
     prize: {
         prize_id: AllPrize;
         name: string;
+        coupon_id: string;
     };
 }
 

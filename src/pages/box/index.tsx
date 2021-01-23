@@ -35,12 +35,18 @@ const Box = () => {
         }
 
         const prizeId = data.prize.prize_id;
+        const couponId = data.prize.coupon_id;
         if (prizeId === "koi") {
             return [];
         }
         if (prizeId === "coupon") {
+            if (String(prizeId) === "4556353458") {
+                return [prizeId, "coupon1"];
+            } else if (String(prizeId) === "8815551707") {
+                return [prizeId, "coupon2"];
+            }
+
             return [prizeId, "coupon1"];
-            // return [prizeId, "coupon2"];
         }
         if (prizeId === "redEnvelope") {
             setIsPoped(true);
