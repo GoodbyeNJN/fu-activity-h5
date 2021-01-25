@@ -74,7 +74,7 @@ const Box = () => {
 
     const acceptVCard = async () => {
         try {
-            // await api.acceptVCard();
+            await api.acceptVCard();
             setShowVCard(false);
             history.push({
                 pathname: "/form",
