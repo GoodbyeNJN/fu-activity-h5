@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { history, useRequest } from "umi";
-import { Toast } from "antd-mobile";
+import { Picker, Toast } from "antd-mobile";
 import styles from "./styles.less";
 
 import { fireworks } from "@/assets/imgs";
+import { areaList } from "@/utils/constant";
 import Input from "@/components/input";
 import Button from "@/components/button";
 import Loading from "@/components/loading";
@@ -22,6 +23,9 @@ const Form = () => {
         utils.wxInit();
         login();
     }, []);
+
+    const [value, setValue] = useState("");
+    const [showPicker, setPickerShow] = useState(false);
 
     const [show, setShow] = useState(false);
     const [shop, setShop] = useState<Shop>({
@@ -129,6 +133,7 @@ const Form = () => {
     const updateBagForm = (key: keyof RedeemerInfo, value: any) => {
         const newState = { ...bagForm };
         newState[key] = value;
+        newState["area"] = utils.getArea();
 
         setBagForm(newState);
     };
@@ -136,6 +141,7 @@ const Form = () => {
     const updatePrizeForm = (key: keyof WinnerInfo, value: any) => {
         const newState = { ...prizeForm };
         newState[key] = value;
+        newState["area"] = utils.getArea();
 
         setPrizeForm(newState);
     };
@@ -173,6 +179,15 @@ const Form = () => {
                         onChange={e => updateBagForm("mobile", e.target.value)}
                     />
                     <Input
+                        // className={styles.input}
+                        label="所在区域"
+                        placeholder="请选择所在区域"
+                        disabled
+                        value={value}
+                        onChange={() => {}}
+                        onClick={() => setPickerShow(true)}
+                    />
+                    <Input
                         label="兑换门店"
                         value={shop.name}
                         placeholder="请选择兑换门店"
@@ -202,6 +217,15 @@ const Form = () => {
                         onChange={e => updatePrizeForm("mobile", e.target.value)}
                     />
                     <Input
+                        // className={styles.input}
+                        label="所在区域"
+                        placeholder="请选择所在区域"
+                        disabled
+                        value={value}
+                        onChange={() => {}}
+                        onClick={() => setPickerShow(true)}
+                    />
+                    <Input
                         label="邮寄地址"
                         value={prizeForm.address}
                         onChange={e => updatePrizeForm("address", e.target.value)}
@@ -223,6 +247,25 @@ const Form = () => {
                     setShop(shop);
                     setShow(false);
                 }}
+            />
+
+            <Picker
+                className={styles.picker}
+                visible={showPicker}
+                data={areaList}
+                cols={1}
+                onChange={value => {
+                    const v = value?.[0];
+                    areaList.forEach(({ value, label }) => {
+                        if (value === v) {
+                            setValue(label);
+                            utils.setArea(value);
+                        }
+                    });
+                }}
+                title="请选择所在区域"
+                onOk={() => setPickerShow(false)}
+                onDismiss={() => setPickerShow(false)}
             />
 
             <Button className={styles.btn} onClick={onRedeem}>
