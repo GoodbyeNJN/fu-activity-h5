@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { history, useRequest } from "umi";
 import { Toast } from "antd-mobile";
 import classnames from "classnames";
-import styles from "./styles.less";
+import styles, { bigBtnDisable } from "./styles.less";
 
 import { common, fireworks, popup } from "@/assets/imgs";
 import { PrizeWithoutKoi, prizeInfoMap } from "@/utils/constant";
@@ -19,6 +19,8 @@ const Box = () => {
     useEffect(() => {
         login();
     }, []);
+
+    const [btnDisabled, setBtnDisabled] = useState(false);
 
     const [isPoped, setIsPoped] = useState(false);
     const [showVCard, setShowVCard] = useState(false);
@@ -40,9 +42,9 @@ const Box = () => {
             return [];
         }
         if (prizeId === "coupon") {
-            if (String(prizeId) === "4556353458") {
+            if (String(couponId) === "4556353458") {
                 return [prizeId, "coupon1"];
-            } else if (String(prizeId) === "8815551707") {
+            } else if (String(couponId) === "8815551707") {
                 return [prizeId, "coupon2"];
             }
 
@@ -55,9 +57,11 @@ const Box = () => {
         return [prizeId, prizeId];
     }, [data]);
 
-    const startLottery = () => {
+    const startLottery = async () => {
         const area = getArea();
-        run(area);
+        setBtnDisabled(true);
+        await run(area);
+        setBtnDisabled(false);
     };
 
     const acceptRedEnvelope = async () => {
@@ -101,7 +105,10 @@ const Box = () => {
                 {loading && <Loading className={styles.loading} />}
                 <Boxes className={styles.box} />
 
-                <Button className={styles.bigBtn} onClick={startLottery}>
+                <Button
+                    className={classnames(styles.bigBtn, btnDisabled && styles.bigBtnDisable)}
+                    onClick={() => !btnDisabled && startLottery()}
+                >
                     打开福盒
                 </Button>
             </div>
