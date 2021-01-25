@@ -8,7 +8,6 @@ import Input from "@/components/input";
 import Button from "@/components/button";
 import Loading from "@/components/loading";
 import ShopModal from "@/components/shop-modal";
-import Modal from "@/components/modal";
 
 import api, { RedeemerInfo, WinnerInfo, Shop } from "@/api";
 import utils from "@/utils";
@@ -25,9 +24,6 @@ const Form = () => {
     }, []);
 
     const [show, setShow] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [modalText, setModalText] = useState("");
-    const [confirmHandler, setConfirmHandler] = useState(() => {});
     const [shop, setShop] = useState<Shop>({
         area: "",
         name: "",
@@ -81,31 +77,22 @@ const Form = () => {
 
     useEffect(() => {
         if (bag.data?.card_collection.wufu || prize.data === null) {
-            // Toast.success(
-            //     <div>
-            //         信息提交成功！
-            //         <br />
-            //         奖品会根据您填写的信息寄出，详情参考活动规则
-            //     </div>,
-            //     3,
-            //     () => {
-            //         history.push("/my");
-            //     },
-            // );
-            setConfirmHandler(onClickConfirm);
-            setModalText("核销成功");
-            setShowModal(true);
+            Toast.success(
+                <div>
+                    信息提交成功！
+                    <br />
+                    奖品会根据您填写的信息寄出，详情参考活动规则
+                </div>,
+                3,
+                () => {
+                    history.push("/my");
+                },
+            );
         }
     }, [prize.data, bag.data]);
 
-    if (shopList.error) {
-        Toast.fail(shopList.error?.message);
-    }
-
-    if (prize.error || bag.error) {
-        setConfirmHandler(() => {});
-        setModalText(prize.error?.message ?? bag.error?.message ?? "核销异常");
-        setShowModal(true);
+    if (prize.error || bag.error || shopList.error) {
+        Toast.fail(prize.error?.message ?? bag.error?.message ?? shopList.error?.message);
     }
 
     const query = history.location.query;
@@ -130,12 +117,6 @@ const Form = () => {
               )
             : Toast.info("请先选择兑换门店");
     };
-
-    const onClickConfirm = () => {
-        history.push("/my");
-    };
-
-    const onClickCancel = () => {};
 
     const onRedeem = () => {
         if (isFromBag) {
@@ -232,14 +213,6 @@ const Form = () => {
                     />
                 </div>
             )}
-
-            <Modal
-                className={styles.modal}
-                show={showModal}
-                setShow={setShowModal}
-                onCancel={onClickCancel}
-                onConfrim={confirmHandler}
-            />
 
             <ShopModal
                 show={show}
