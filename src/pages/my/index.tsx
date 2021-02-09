@@ -27,6 +27,7 @@ const My = () => {
     const [showVCard, setShowVCard] = useState(false);
 
     const { data, error, loading } = useRequest(api.getUserPrize);
+    const vCardResultRequest = useRequest(api.getVCardResult, { manual: true });
 
     useEffect(() => {
         if (!data) {
@@ -72,11 +73,14 @@ const My = () => {
         }
     }, [data]);
 
-    if (error) {
-        Toast.fail(error.message);
+    if (error || vCardResultRequest.error) {
+        Toast.fail(error?.message || vCardResultRequest.error?.message);
     }
     if (loading) {
         return <Loading fullScreen />;
+    }
+    if (vCardResultRequest.loading) {
+        return <Loading className={styles.loading} />;
     }
 
     const PrizeElement = ({ value }: { value: Prize }) => {
@@ -93,6 +97,7 @@ const My = () => {
 
                     if (value === "koi") {
                         setShowVCard(true);
+                        vCardResultRequest.run();
                         return;
                     }
 
@@ -142,7 +147,15 @@ const My = () => {
         <div className={styles.container}>
             {showVCard && (
                 <div className={styles.vCardPopup}>
-                    <div className={styles.popupTitle}>2021年2月11日12点开奖</div>
+                    {!vCardResultRequest.data ? null : typeof vCardResultRequest.data ===
+                      "string" ? (
+                        <div className={styles.popupTitle}> {vCardResultRequest.data}</div>
+                    ) : (
+                        <div className={styles.popupText}>
+                            <div>{`恭喜${vCardResultRequest.data.name}顾客(手机尾号${vCardResultRequest.data.phone_suffix})获得超级锦鲤奖！`}</div>
+                            <div>奖品将在年后寄出，届时请凭中奖短信至购机门店领取</div>
+                        </div>
+                    )}
                     <Popup src={popup.vCard} className={styles.popup} show={showVCard} noBtn />
                     <Button
                         className={styles.popupBtn}

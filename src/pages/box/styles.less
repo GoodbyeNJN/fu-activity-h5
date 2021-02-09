@@ -111,6 +111,22 @@
     z-index: 10;
 }
 
+.popup-text {
+    position: absolute;
+    top: calc(60 * @x);
+    left: 50%;
+    width: 80%;
+    color: #fff;
+    text-align: center;
+    font-size: calc(40 * @x);
+    transform: translate(-50%, 0);
+    z-index: 10;
+
+    & > :last-child {
+        font-size: calc(24 * @x);
+    }
+}
+
 .loading {
     position: absolute;
     top: calc(678 * @x);

@@ -79,6 +79,11 @@ export interface RedeemerInfo {
     key: string;
 }
 
+export interface VCardWinnerInfo {
+    name: string;
+    phone_suffix: string;
+}
+
 export const login = (code: string) => {
     return request.post<Result<UserInfo>>("/wechat/login", { data: { code } });
 };
@@ -232,6 +237,21 @@ export const syntheticCard = async (data: RedeemerInfo) => {
     }
 };
 
+export const getVCardResult = async (): Promise<Result<VCardWinnerInfo | string>> => {
+    try {
+        const res = await request.get<Result<VCardWinnerInfo>>("/2021spring/vcard/result");
+        if (res?.errcode === 30009) {
+            return { ...res, data: res.message };
+        } else if (res?.errcode) {
+            throw res;
+        }
+
+        return res;
+    } catch (error) {
+        throw new Error(error?.message ?? "获取开奖信息异常，请刷新重试");
+    }
+};
+
 export default {
     login,
     getSignature,
@@ -244,4 +264,5 @@ export default {
     getCardCollection,
     getCardCollectionAfterShare,
     syntheticCard,
+    getVCardResult,
 };
